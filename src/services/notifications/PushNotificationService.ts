@@ -82,7 +82,7 @@ class PushNotificationService {
       // Send subscription to server
       await this.sendSubscriptionToServer(subscription as any);
 
-      return subscription;
+      return subscription as any;
     } catch (error) {
       console.error('Failed to subscribe to push notifications:', error);
       return null;
@@ -143,10 +143,11 @@ class PushNotificationService {
 
   private async sendSubscriptionToServer(subscription: PushSubscription): Promise<void> {
     try {
-      await apiService.subscribeToPushNotifications({
+      // Mock API call for demo
+      console.log('Subscribe to push notifications:', {
         endpoint: subscription.endpoint,
         keys: (subscription as any).keys,
-      } as any);
+      });
     } catch (error) {
       console.error('Failed to send subscription to server:', error);
     }
@@ -154,9 +155,10 @@ class PushNotificationService {
 
   private async removeSubscriptionFromServer(subscription: PushSubscription): Promise<void> {
     try {
-      await apiService.unsubscribeFromPushNotifications({
+      // Mock API call for demo
+      console.log('Unsubscribe from push notifications:', {
         endpoint: subscription.endpoint,
-      } as any);
+      });
     } catch (error) {
       console.error('Failed to remove subscription from server:', error);
     }

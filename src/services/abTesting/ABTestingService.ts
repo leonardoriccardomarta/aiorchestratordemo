@@ -32,8 +32,47 @@ class ABTestingService {
 
   private async loadActiveTests(): Promise<void> {
     try {
-      const response = await apiService.getABTests();
-      const tests = response.data || [];
+      // Mock AB tests data for demo
+      const tests = [
+        { 
+          id: 'test1', 
+          isActive: true, 
+          name: 'Button Color Test',
+          variants: [
+            { 
+              id: 'variant1', 
+              name: 'Red Button', 
+              config: { color: 'red' },
+              trafficPercentage: 50 
+            },
+            { 
+              id: 'variant2', 
+              name: 'Blue Button', 
+              config: { color: 'blue' },
+              trafficPercentage: 50 
+            }
+          ]
+        },
+        { 
+          id: 'test2', 
+          isActive: false, 
+          name: 'Layout Test',
+          variants: [
+            { 
+              id: 'variant1', 
+              name: 'Sidebar Layout', 
+              config: { layout: 'sidebar' },
+              trafficPercentage: 50 
+            },
+            { 
+              id: 'variant2', 
+              name: 'Top Layout', 
+              config: { layout: 'top' },
+              trafficPercentage: 50 
+            }
+          ]
+        }
+      ];
       this.activeTests.clear();
       tests.forEach(test => {
         if (test.isActive) {
@@ -94,12 +133,8 @@ class ABTestingService {
       const variantId = await this.assignVariant(testId, userId);
       
       if (variantId) {
-        await apiService.recordABTestEvent(testId, variantId, event, value);
-          userId: userId || 'anonymous',
-          event,
-          value,
-          timestamp: new Date()
-        });
+        // Mock API call for demo
+        console.log('AB Test Event:', { testId, variantId, event, value });
       }
     } catch (error) {
       console.error('Failed to track A/B test event:', error);

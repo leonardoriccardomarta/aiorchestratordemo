@@ -24,7 +24,7 @@ const UserManagement: React.FC = () => {
     try {
       setLoading(true);
       const response = await apiService.getUsers();
-      setUsers(response.data || []);
+      setUsers(Array.isArray(response.data) ? response.data : []);
     } catch (error) {
       console.error('Errore nel caricamento utenti:', error);
     } finally {

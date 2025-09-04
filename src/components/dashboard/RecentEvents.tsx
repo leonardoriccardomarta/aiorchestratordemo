@@ -2,7 +2,7 @@ import React from 'react';
 
 interface Event {
   id: string;
-  type: 'chatbot_created' | 'workflow_executed' | 'error' | 'warning';
+  type: string;
   title: string;
   description: string;
   timestamp: string;
