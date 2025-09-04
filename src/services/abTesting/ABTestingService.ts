@@ -32,7 +32,8 @@ class ABTestingService {
 
   private async loadActiveTests(): Promise<void> {
     try {
-      const tests = await apiService.getABTests();
+      const response = await apiService.getABTests();
+      const tests = response.data || [];
       this.activeTests.clear();
       tests.forEach(test => {
         if (test.isActive) {
@@ -93,9 +94,7 @@ class ABTestingService {
       const variantId = await this.assignVariant(testId, userId);
       
       if (variantId) {
-        await apiService.recordABTestEvent({
-          testId,
-          variantId,
+        await apiService.recordABTestEvent(testId, variantId, event, value);
           userId: userId || 'anonymous',
           event,
           value,

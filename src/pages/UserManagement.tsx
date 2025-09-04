@@ -23,8 +23,8 @@ const UserManagement: React.FC = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const data = await apiService.getUsers();
-      setUsers(data);
+      const response = await apiService.getUsers();
+      setUsers(response.data || []);
     } catch (error) {
       console.error('Errore nel caricamento utenti:', error);
     } finally {

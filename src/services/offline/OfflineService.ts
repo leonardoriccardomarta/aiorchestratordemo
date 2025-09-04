@@ -110,7 +110,7 @@ class OfflineService {
         await apiService.deleteChatbot(action.payload.id);
         break;
       case 'SEND_MESSAGE':
-        await apiService.sendMessage(action.payload.chatbotId, action.payload.message);
+        await apiService.sendMessage(action.payload.chatbotId, action.payload.message as any);
         break;
       default:
         throw new Error(`Unknown action type: ${action.type}`);

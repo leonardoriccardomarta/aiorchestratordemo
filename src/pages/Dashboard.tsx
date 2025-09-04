@@ -10,7 +10,7 @@ import { Icons } from '../components/ui/Icon';
 
 interface Event {
   id: string;
-  type: 'chatbot_created' | 'workflow_executed' | 'error' | 'warning';
+  type: string;
   title: string;
   description: string;
   timestamp: string;

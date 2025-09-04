@@ -80,7 +80,7 @@ class PushNotificationService {
       });
 
       // Send subscription to server
-      await this.sendSubscriptionToServer(subscription);
+      await this.sendSubscriptionToServer(subscription as any);
 
       return subscription;
     } catch (error) {
@@ -98,7 +98,7 @@ class PushNotificationService {
       const subscription = await this.swRegistration.pushManager.getSubscription();
       if (subscription) {
         await subscription.unsubscribe();
-        await this.removeSubscriptionFromServer(subscription);
+        await this.removeSubscriptionFromServer(subscription as any);
         return true;
       }
       return false;
@@ -145,8 +145,8 @@ class PushNotificationService {
     try {
       await apiService.subscribeToPushNotifications({
         endpoint: subscription.endpoint,
-        keys: subscription.keys,
-      });
+        keys: (subscription as any).keys,
+      } as any);
     } catch (error) {
       console.error('Failed to send subscription to server:', error);
     }
@@ -156,7 +156,7 @@ class PushNotificationService {
     try {
       await apiService.unsubscribeFromPushNotifications({
         endpoint: subscription.endpoint,
-      });
+      } as any);
     } catch (error) {
       console.error('Failed to remove subscription from server:', error);
     }
