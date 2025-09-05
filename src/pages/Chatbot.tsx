@@ -26,7 +26,6 @@ const Chatbot: React.FC = () => {
     try {
       setLoading(true);
       const response = await apiService.getChatbots();
-      // Extract data from mock API response
       setChatbots(response.data || []);
     } catch (error) {
       console.error('Error loading chatbots:', error);
@@ -35,8 +34,6 @@ const Chatbot: React.FC = () => {
       setLoading(false);
     }
   };
-
-
 
   const handleUpdateChatbot = async (id: string, updates: any) => {
     try {
@@ -124,7 +121,7 @@ const Chatbot: React.FC = () => {
       document.body.removeChild(confirmModal);
     });
     
-    confirmBtn?.addEventListener('click', () => {
+    confirmBtn?.addEventListener('click', async () => {
       document.body.removeChild(confirmModal);
       try {
         const response = await apiService.deleteChatbot(id);
@@ -199,7 +196,7 @@ const Chatbot: React.FC = () => {
         document.body.appendChild(modal);
         setTimeout(() => modal.remove(), 3000);
       }
-    }
+    });
   };
 
   const handleEditChatbot = (chatbot: any) => {
@@ -216,7 +213,12 @@ const Chatbot: React.FC = () => {
     setShowEditModal(true);
   };
 
-
+  const handleSaveEdit = () => {
+    if (selectedChatbot) {
+      handleUpdateChatbot(selectedChatbot.id, editFormData);
+      setShowEditModal(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -233,10 +235,10 @@ const Chatbot: React.FC = () => {
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-                 <div className="mb-8">
-           <h1 className="text-3xl font-bold text-gray-900">🤖 Chatbot Management</h1>
-           <p className="text-gray-600 mt-2">Create and manage your advanced AI assistants</p>
-         </div>
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">🤖 Chatbot Management</h1>
+          <p className="text-gray-600 mt-2">Create and manage your advanced AI assistants</p>
+        </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
@@ -246,7 +248,7 @@ const Chatbot: React.FC = () => {
                 <span className="text-2xl">🤖</span>
               </div>
               <div className="ml-4">
-                                 <p className="text-sm font-medium text-gray-600">Total Chatbots</p>
+                <p className="text-sm font-medium text-gray-600">Total Chatbots</p>
                 <p className="text-2xl font-bold text-gray-900">{chatbots.length}</p>
               </div>
             </div>
@@ -258,7 +260,7 @@ const Chatbot: React.FC = () => {
                 <span className="text-2xl">✅</span>
               </div>
               <div className="ml-4">
-                                 <p className="text-sm font-medium text-gray-600">Active</p>
+                <p className="text-sm font-medium text-gray-600">Active</p>
                 <p className="text-2xl font-bold text-gray-900">
                   {chatbots.filter(bot => bot.isActive).length}
                 </p>
@@ -272,7 +274,7 @@ const Chatbot: React.FC = () => {
                 <span className="text-2xl">💬</span>
               </div>
               <div className="ml-4">
-                                 <p className="text-sm font-medium text-gray-600">Messages Today</p>
+                <p className="text-sm font-medium text-gray-600">Messages Today</p>
                 <p className="text-2xl font-bold text-gray-900">
                   {chatbots.reduce((sum, bot) => sum + (bot.metrics?.todayMessages || 0), 0)}
                 </p>
@@ -286,7 +288,7 @@ const Chatbot: React.FC = () => {
                 <span className="text-2xl">🎯</span>
               </div>
               <div className="ml-4">
-                                 <p className="text-sm font-medium text-gray-600">Satisfaction</p>
+                <p className="text-sm font-medium text-gray-600">Satisfaction</p>
                 <p className="text-2xl font-bold text-gray-900">94%</p>
               </div>
             </div>
@@ -295,7 +297,7 @@ const Chatbot: React.FC = () => {
 
         {/* Actions */}
         <div className="flex justify-center items-center mb-6">
-          <button 
+          <button
             onClick={() => setShowCustomization(true)}
             className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-purple-800 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
           >
@@ -306,285 +308,114 @@ const Chatbot: React.FC = () => {
 
         {/* Chatbots List */}
         <div className="bg-white rounded-lg shadow hover:shadow-xl transition-all duration-500 hover:scale-[1.01] border border-transparent hover:border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">Your Chatbots</h2>
-          </div>
-          
-          <div className="divide-y divide-gray-200">
-            {chatbots.map((chatbot) => (
-              <div key={chatbot.id} className="p-6 hover:bg-gray-50">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <span className="text-xl">🤖</span>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-medium text-gray-900">{chatbot.name}</h3>
-                      <p className="text-gray-600">{chatbot.description}</p>
-                      <div className="flex items-center space-x-4 mt-2">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          chatbot.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-                        }`}>
-                          {chatbot.isActive ? 'Active' : 'Inactive'}
-                        </span>
-                        <span className="text-sm text-gray-600 font-medium">
-                          💬 {chatbot.metrics?.totalMessages || 0} messages
-                        </span>
-                        <span className="text-sm text-gray-600 font-medium">
-                          ⚡ {chatbot.metrics?.avgResponseTime ? `${chatbot.metrics.avgResponseTime}ms` : '0ms'}
-                        </span>
-                        {chatbot.isActive && (
-                          <>
-                            <span className="text-sm text-gray-600 font-medium">
-                              ⭐ {chatbot.metrics?.satisfaction || 0}/5
-                            </span>
-                            <span className="text-sm text-gray-600 font-medium">
-                              📊 {chatbot.metrics?.uptime || 0}%
-                            </span>
-                          </>
-                        )}
-                        {!chatbot.isActive && (
-                          <span className="text-xs text-gray-400 italic">
-                            (Inactive - No activity)
-                          </span>
-                        )}
-                      </div>
-                    </div>
+          <div className="p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Your Chatbots</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {chatbots.map((chatbot) => (
+                <div key={chatbot.id} className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="font-semibold text-gray-900">{chatbot.name}</h3>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      chatbot.isActive 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-gray-100 text-gray-800'
+                    }`}>
+                      {chatbot.isActive ? 'Active' : 'Inactive'}
+                    </span>
                   </div>
                   
-                  <div className="flex items-center space-x-2">
-                    <button 
+                  <p className="text-gray-600 text-sm mb-4">{chatbot.description}</p>
+                  
+                  {/* Metrics */}
+                  {chatbot.metrics && (
+                    <div className="grid grid-cols-2 gap-2 mb-4 text-xs">
+                      <div className="bg-white rounded p-2 text-center">
+                        <div className="font-semibold text-gray-900">{chatbot.metrics.todayMessages || 0}</div>
+                        <div className="text-gray-500">Messages</div>
+                      </div>
+                      <div className="bg-white rounded p-2 text-center">
+                        <div className="font-semibold text-gray-900">{chatbot.metrics.avgResponseTime || 0}ms</div>
+                        <div className="text-gray-500">Response</div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="flex space-x-2">
+                    <button
                       onClick={() => handleEditChatbot(chatbot)}
-                      className="text-blue-600 hover:text-blue-800 transition-all duration-300 hover:scale-105"
+                      className="flex-1 bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 transition-all duration-300 hover:scale-105"
                     >
-                      ✏️ Edit
+                      Edit
                     </button>
-
-                    <button 
+                    <button
                       onClick={() => {
                         setSelectedChatbot(chatbot);
                         setShowCustomization(true);
                       }}
-                      className="text-indigo-600 hover:text-indigo-800 transition-all duration-300 hover:scale-105"
+                      className="flex-1 bg-purple-600 text-white px-3 py-2 rounded text-sm hover:bg-purple-700 transition-all duration-300 hover:scale-105"
                     >
-                      🎨 Customize
+                      Customize
                     </button>
-                    <button 
+                    <button
                       onClick={() => handleDeleteChatbot(chatbot.id)}
-                      className="text-red-600 hover:text-red-800 transition-all duration-300 hover:scale-105"
+                      className="bg-red-600 text-white px-3 py-2 rounded text-sm hover:bg-red-700 transition-all duration-300 hover:scale-105"
                     >
-                      🗑️ Delete
+                      Delete
                     </button>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-
-                {/* Removed Advanced Features section - not needed for YC demo */}
       </div>
 
-
-
-      {/* Chatbot Customization Modal */}
-      {showCustomization && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg w-full max-w-7xl h-full max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center p-4 border-b border-gray-200">
-              <h3 className="text-lg font-semibold">
-                {selectedChatbot ? `Customize ${selectedChatbot.name}` : 'Chatbot Customization'}
-              </h3>
-              <button
-                onClick={() => {
-                  setShowCustomization(false);
-                  setSelectedChatbot(null);
-                }}
-                className="text-gray-400 hover:text-gray-600 text-2xl"
-              >
-                ×
-              </button>
-            </div>
-            <div className="h-full overflow-y-auto">
-              <ChatbotCustomization />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Edit Chatbot Modal */}
-      {showEditModal && selectedChatbot && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center p-6 border-b border-gray-200">
-              <h3 className="text-xl font-semibold text-gray-900">
-                ✏️ Edit Chatbot: {selectedChatbot.name}
-              </h3>
-              <button
-                onClick={() => setShowEditModal(false)}
-                className="text-gray-400 hover:text-gray-600 transition-colors"
-              >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-            
-            <div className="p-6 space-y-6">
-              {/* Basic Information */}
-              <div className="space-y-4">
-                <h4 className="text-lg font-medium text-gray-900">Basic Information</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Chatbot Name</label>
-                    <input
-                      type="text"
-                      value={editFormData.name}
-                      onChange={(e) => setEditFormData(prev => ({ ...prev, name: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                    <select
-                      value={editFormData.status}
-                      onChange={(e) => setEditFormData(prev => ({ ...prev, status: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    >
-                      <option value="active">Active</option>
-                      <option value="inactive">Inactive</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                  <textarea
-                    value={editFormData.description}
-                    onChange={(e) => setEditFormData(prev => ({ ...prev, description: e.target.value }))}
-                    rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
+      {/* Edit Modal */}
+      {showEditModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-xl max-w-md w-full p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Edit Chatbot</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <input
+                  type="text"
+                  value={editFormData.name}
+                  onChange={(e) => setEditFormData({...editFormData, name: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
               </div>
-
-              {/* Response Settings */}
-              <div className="space-y-4">
-                <h4 className="text-lg font-medium text-gray-900">Response Settings</h4>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Welcome Message</label>
-                  <textarea
-                    value={editFormData.welcomeMessage}
-                    onChange={(e) => setEditFormData(prev => ({ ...prev, welcomeMessage: e.target.value }))}
-                    rows={2}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Response Template</label>
-                  <textarea
-                    value={editFormData.responseTemplate}
-                    onChange={(e) => setEditFormData(prev => ({ ...prev, responseTemplate: e.target.value }))}
-                    rows={3}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  />
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <textarea
+                  value={editFormData.description}
+                  onChange={(e) => setEditFormData({...editFormData, description: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  rows={3}
+                />
               </div>
-
-              {/* Performance Settings */}
-              <div className="space-y-4">
-                <h4 className="text-lg font-medium text-gray-900">Performance Settings</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Response Time (ms)</label>
-                    <input
-                      type="number"
-                      value={editFormData.responseTime}
-                      onChange={(e) => setEditFormData(prev => ({ ...prev, responseTime: parseInt(e.target.value) || 500 }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Max Messages per Session</label>
-                    <input
-                      type="number"
-                      value={editFormData.maxMessages}
-                      onChange={(e) => setEditFormData(prev => ({ ...prev, maxMessages: parseInt(e.target.value) || 50 }))}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    />
-                  </div>
-                </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                <select
+                  value={editFormData.status}
+                  onChange={(e) => setEditFormData({...editFormData, status: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                  <option value="active">Active</option>
+                  <option value="inactive">Inactive</option>
+                </select>
               </div>
             </div>
-
-            <div className="flex justify-end space-x-3 p-6 border-t border-gray-200">
+            <div className="flex space-x-3 mt-6">
               <button
                 onClick={() => setShowEditModal(false)}
-                className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-all duration-300"
               >
                 Cancel
               </button>
               <button
-                onClick={() => {
-                  // Update the chatbot with new data
-                  setChatbots(prev => prev.map(chatbot => 
-                    chatbot.id === selectedChatbot.id 
-                      ? {
-                          ...chatbot,
-                          name: editFormData.name,
-                          description: editFormData.description,
-                          isActive: editFormData.status === 'active',
-                          metrics: {
-                            ...chatbot.metrics,
-                            avgResponseTime: editFormData.responseTime
-                          }
-                        }
-                      : chatbot
-                  ));
-                  
-                  setShowEditModal(false);
-                  
-                  // Show success message
-                  const modal = document.createElement('div');
-                  modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
-                  modal.innerHTML = `
-                    <div class="bg-white rounded-xl max-w-md w-full p-6">
-                      <div class="flex items-center space-x-3 mb-4">
-                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                          <svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                          </svg>
-                        </div>
-                        <div>
-                          <h3 class="text-lg font-semibold text-gray-900">Chatbot Updated!</h3>
-                          <p class="text-gray-600">Changes saved successfully</p>
-                        </div>
-                      </div>
-                      <div class="space-y-2 mb-4">
-                        <div class="flex justify-between">
-                          <span class="text-sm font-medium text-gray-700">Name:</span>
-                          <span class="text-sm text-gray-900">${editFormData.name}</span>
-                        </div>
-                        <div class="flex justify-between">
-                          <span class="text-sm font-medium text-gray-700">Status:</span>
-                          <span class="text-sm text-gray-900">${editFormData.status === 'active' ? 'Active' : 'Inactive'}</span>
-                        </div>
-                        <div class="flex justify-between">
-                          <span class="text-sm font-medium text-gray-700">Response Time:</span>
-                          <span class="text-sm text-gray-900">${editFormData.responseTime}ms</span>
-                        </div>
-                      </div>
-                      <div class="bg-green-50 rounded-lg p-3 mb-4">
-                        <p class="text-sm text-green-800">Your chatbot settings have been updated and are now active.</p>
-                      </div>
-                      <button onclick="this.closest('.fixed').remove()" class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium">
-                        Continue
-                      </button>
-                    </div>
-                  `;
-                  document.body.appendChild(modal);
-                  setTimeout(() => modal.remove(), 3000);
-                }}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                onClick={handleSaveEdit}
+                className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 hover:scale-105"
               >
                 Save Changes
               </button>
@@ -592,8 +423,13 @@ const Chatbot: React.FC = () => {
           </div>
         </div>
       )}
+
+                   {/* Customization Modal */}
+             {showCustomization && (
+               <ChatbotCustomization />
+             )}
     </div>
   );
 };
 
-export default Chatbot; 
+export default Chatbot;
