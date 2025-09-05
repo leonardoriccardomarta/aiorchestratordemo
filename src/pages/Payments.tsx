@@ -203,7 +203,7 @@ const Payments: React.FC = () => {
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Monthly Revenue</p>
-                <p className="text-2xl font-bold text-gray-900">$24,567</p>
+                <p className="text-2xl font-bold text-gray-900">$999</p>
                 <p className="text-sm text-green-600">+12% vs last month</p>
               </div>
             </div>
@@ -229,7 +229,7 @@ const Payments: React.FC = () => {
               </div>
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Pending Revenue</p>
-                <p className="text-2xl font-bold text-gray-900">$3,421</p>
+                <p className="text-2xl font-bold text-gray-900">$499</p>
                 <p className="text-sm text-yellow-600">12 pending payments</p>
               </div>
             </div>
@@ -349,19 +349,19 @@ const Payments: React.FC = () => {
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-600">January</span>
-                        <span className="font-medium">$18,234</span>
+                        <span className="font-medium">$199</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-600">February</span>
-                        <span className="font-medium">$21,567</span>
+                        <span className="font-medium">$499</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-600">March</span>
-                        <span className="font-medium">$24,567</span>
+                        <span className="font-medium">$999</span>
                       </div>
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-600">April</span>
-                        <span className="font-medium text-green-600">$28,901</span>
+                        <span className="font-medium text-green-600">$999</span>
                       </div>
                     </div>
                   </div>
@@ -523,7 +523,7 @@ const Payments: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-red-50 rounded-lg p-6 hover:shadow-lg transition-all duration-300 hover:scale-105">
                     <h4 className="font-medium text-gray-900 mb-4">💰 Total Refunds</h4>
-                    <div className="text-3xl font-bold text-red-600 mb-2">$2,847</div>
+                    <div className="text-3xl font-bold text-red-600 mb-2">$199</div>
                     <p className="text-sm text-gray-600">23 refunds this month</p>
                   </div>
                   <div className="bg-blue-50 rounded-lg p-6 hover:shadow-lg transition-all duration-300 hover:scale-105">
@@ -586,7 +586,7 @@ const Payments: React.FC = () => {
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-600">Credit Cards</span>
-                        <span className="font-medium">$16,234</span>
+                        <span className="font-medium">$199</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div className="bg-blue-600 h-2 rounded-full" style={{ width: '67%' }}></div>
@@ -594,7 +594,7 @@ const Payments: React.FC = () => {
                       
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-600">PayPal</span>
-                        <span className="font-medium">$5,567</span>
+                        <span className="font-medium">$499</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div className="bg-green-600 h-2 rounded-full" style={{ width: '23%' }}></div>
@@ -602,7 +602,7 @@ const Payments: React.FC = () => {
                       
                       <div className="flex items-center justify-between">
                         <span className="text-sm text-gray-600">Bank Transfer</span>
-                        <span className="font-medium">$2,766</span>
+                        <span className="font-medium">$999</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
                         <div className="bg-purple-600 h-2 rounded-full" style={{ width: '10%' }}></div>
@@ -615,19 +615,19 @@ const Payments: React.FC = () => {
                     <div className="space-y-3">
                       <div className="flex items-center justify-between hover:bg-gray-50 p-2 rounded transition-all duration-300 hover:scale-105">
                         <span className="text-sm text-gray-600">January</span>
-                        <span className="font-medium">$18,234</span>
+                        <span className="font-medium">$199</span>
                       </div>
                       <div className="flex items-center justify-between hover:bg-gray-50 p-2 rounded transition-all duration-300 hover:scale-105">
                         <span className="text-sm text-gray-600">February</span>
-                        <span className="font-medium">$21,567</span>
+                        <span className="font-medium">$499</span>
                       </div>
                       <div className="flex items-center justify-between hover:bg-gray-50 p-2 rounded transition-all duration-300 hover:scale-105">
                         <span className="text-sm text-gray-600">March</span>
-                        <span className="font-medium">$24,567</span>
+                        <span className="font-medium">$999</span>
                       </div>
                       <div className="flex items-center justify-between hover:bg-gray-50 p-2 rounded transition-all duration-300 hover:scale-105">
                         <span className="text-sm text-gray-600">April</span>
-                        <span className="font-medium text-green-600">$28,901</span>
+                        <span className="font-medium text-green-600">$999</span>
                       </div>
                     </div>
                   </div>
@@ -650,7 +650,7 @@ const Payments: React.FC = () => {
                       <div className="text-sm text-gray-600">Payment Failures</div>
                     </div>
                     <div className="text-center hover:bg-gray-50 p-4 rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-md">
-                      <div className="text-2xl font-bold text-purple-600 mb-2">$156</div>
+                      <div className="text-2xl font-bold text-purple-600 mb-2">$199</div>
                       <div className="text-sm text-gray-600">Avg Transaction</div>
                     </div>
                   </div>
