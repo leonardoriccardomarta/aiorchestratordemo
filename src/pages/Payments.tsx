@@ -31,7 +31,7 @@ const Payments: React.FC = () => {
       id: i + 1,
       number: `INV-2024-${String(i + 1).padStart(3, '0')}`,
       customer: `Customer ${i + 1}`,
-      amount: Math.floor(Math.random() * 1000) + 100,
+      amount: [199, 499, 999][Math.floor(Math.random() * 3)],
       status: ['paid', 'pending', 'overdue'][Math.floor(Math.random() * 3)],
       date: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000)
     }));
@@ -43,7 +43,7 @@ const Payments: React.FC = () => {
       id: i + 1,
       customer: `Customer ${i + 1}`,
       plan: ['Starter', 'Professional', 'Enterprise'][Math.floor(Math.random() * 3)],
-      amount: [29, 49, 99][Math.floor(Math.random() * 3)],
+      amount: [199, 499, 999][Math.floor(Math.random() * 3)],
       status: ['active', 'trial', 'past_due'][Math.floor(Math.random() * 3)],
       nextBilling: new Date(Date.now() + Math.random() * 30 * 24 * 60 * 60 * 1000)
     }))
@@ -64,7 +64,7 @@ const Payments: React.FC = () => {
       id: invoices.length + 1,
       number: `INV-2024-${String(invoices.length + 1).padStart(3, '0')}`,
       customer: `Customer ${invoices.length + 1}`,
-      amount: Math.floor(Math.random() * 1000) + 100,
+      amount: [199, 499, 999][Math.floor(Math.random() * 3)],
       status: 'pending',
       date: new Date()
     };
