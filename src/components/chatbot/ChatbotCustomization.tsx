@@ -150,7 +150,19 @@ const ChatbotCustomization: React.FC<ChatbotCustomizationProps> = () => {
       
     } catch (error) {
       // Show error feedback
-      alert('Failed to save configuration. Please try again.');
+      // Show error modal
+      const errorModal = document.createElement('div');
+      errorModal.innerHTML = `
+        <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: flex; align-items: center; justify-content: center;">
+          <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+            <div style="font-size: 48px; margin-bottom: 16px;">❌</div>
+            <h3 style="font-size: 20px; font-weight: 600; color: #1f2937; margin-bottom: 8px;">Save Failed</h3>
+            <p style="color: #6b7280; margin-bottom: 24px;">Failed to save configuration. Please try again.</p>
+            <button onclick="this.parentElement.parentElement.parentElement.remove()" style="padding: 10px 20px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">OK</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(errorModal);
       console.error('Save error:', error);
       
       // Reset button
@@ -217,7 +229,19 @@ const ChatbotCustomization: React.FC<ChatbotCustomizationProps> = () => {
       
     } catch (error) {
       console.error('Shopify installation failed:', error);
-      alert('Installation failed. Please try again or contact support.');
+      // Show error modal
+      const errorModal = document.createElement('div');
+      errorModal.innerHTML = `
+        <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: flex; align-items: center; justify-content: center;">
+          <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+            <div style="font-size: 48px; margin-bottom: 16px;">❌</div>
+            <h3 style="font-size: 20px; font-weight: 600; color: #1f2937; margin-bottom: 8px;">Installation Failed</h3>
+            <p style="color: #6b7280; margin-bottom: 24px;">Installation failed. Please try again or contact support.</p>
+            <button onclick="this.parentElement.parentElement.parentElement.remove()" style="padding: 10px 20px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">OK</button>
+        </div>
+      </div>
+    `;
+      document.body.appendChild(errorModal);
       setShopifyIntegration(prev => ({ ...prev, isInstalling: false }));
     }
   };
@@ -848,41 +872,41 @@ const ChatbotCustomization: React.FC<ChatbotCustomizationProps> = () => {
                   </div>
                   <div className="space-y-4">
                     <div className="flex space-x-3">
-                      <button
-                        onClick={handleShopifyOneClickInstall}
-                        disabled={shopifyIntegration.isInstalling}
-                        className={`inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-md ${
-                          shopifyIntegration.isConnected
-                            ? 'bg-green-600 text-white cursor-default'
-                            : shopifyIntegration.isInstalling
-                            ? 'bg-gray-400 text-white cursor-not-allowed'
-                            : 'bg-blue-600 text-white hover:bg-blue-700'
-                        } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
-                      >
-                        {shopifyIntegration.isInstalling ? (
-                          <>
-                            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                            Installing...
-                          </>
-                        ) : shopifyIntegration.isConnected ? (
-                          <>
-                            <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            Connected
-                          </>
-                        ) : (
-                          <>
-                            <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                            </svg>
-                            Install Widget
-                          </>
-                        )}
-                      </button>
+                  <button
+                    onClick={handleShopifyOneClickInstall}
+                    disabled={shopifyIntegration.isInstalling}
+                    className={`inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-md ${
+                      shopifyIntegration.isConnected
+                        ? 'bg-green-600 text-white cursor-default'
+                        : shopifyIntegration.isInstalling
+                        ? 'bg-gray-400 text-white cursor-not-allowed'
+                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                    } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+                  >
+                    {shopifyIntegration.isInstalling ? (
+                      <>
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Installing...
+                      </>
+                    ) : shopifyIntegration.isConnected ? (
+                      <>
+                        <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                        Connected
+                      </>
+                    ) : (
+                      <>
+                        <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        Install Widget
+                      </>
+                    )}
+                  </button>
                       <button
                         onClick={() => window.open(`${window.location.origin}/test-widget.html?chatbot=${chatbotId}`, '_blank')}
                         className="inline-flex items-center px-4 py-3 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"

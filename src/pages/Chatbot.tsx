@@ -100,11 +100,51 @@ const Chatbot: React.FC = () => {
   };
 
   const handleDeleteChatbot = async (id: string) => {
-    if (confirm('Are you sure you want to delete this chatbot?')) {
+    // Show custom confirmation modal
+    const confirmModal = document.createElement('div');
+    confirmModal.innerHTML = `
+      <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: flex; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+          <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+          <h3 style="font-size: 20px; font-weight: 600; color: #1f2937; margin-bottom: 8px;">Delete Chatbot</h3>
+          <p style="color: #6b7280; margin-bottom: 24px;">Are you sure you want to delete this chatbot? This action cannot be undone.</p>
+          <div style="display: flex; gap: 12px; justify-content: center;">
+            <button id="cancelDelete" style="padding: 10px 20px; border: 1px solid #d1d5db; background: white; color: #374151; border-radius: 6px; cursor: pointer; font-weight: 500;">Cancel</button>
+            <button id="confirmDelete" style="padding: 10px 20px; background: #dc2626; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">Delete</button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(confirmModal);
+    
+    const cancelBtn = confirmModal.querySelector('#cancelDelete');
+    const confirmBtn = confirmModal.querySelector('#confirmDelete');
+    
+    cancelBtn?.addEventListener('click', () => {
+      document.body.removeChild(confirmModal);
+    });
+    
+    confirmBtn?.addEventListener('click', () => {
+      document.body.removeChild(confirmModal);
       try {
         const response = await apiService.deleteChatbot(id);
         if (response.success) {
           setChatbots(chatbots.filter(c => c.id !== id));
+          
+          // Show success modal
+          const successModal = document.createElement('div');
+          successModal.innerHTML = `
+            <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: flex; align-items: center; justify-content: center;">
+              <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+                <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
+                <h3 style="font-size: 20px; font-weight: 600; color: #1f2937; margin-bottom: 8px;">Chatbot Deleted</h3>
+                <p style="color: #6b7280; margin-bottom: 24px;">The chatbot has been successfully deleted.</p>
+                <button onclick="this.parentElement.parentElement.parentElement.remove()" style="padding: 10px 20px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">OK</button>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(successModal);
+        } else {
           const modal = document.createElement('div');
           modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
           modal.innerHTML = `
