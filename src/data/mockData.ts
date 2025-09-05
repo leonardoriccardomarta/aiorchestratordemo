@@ -288,7 +288,7 @@ export const MOCK_DATA = {
       id: 1,
       description: 'Professional Plan Subscription',
       customer: 'John Doe',
-      amount: 49,
+      amount: 499,
       date: '2025-01-15T10:30:00Z',
       status: 'completed',
       method: 'credit_card'
@@ -297,7 +297,7 @@ export const MOCK_DATA = {
       id: 2,
       description: 'Enterprise Plan Upgrade',
       customer: 'Jane Smith',
-      amount: 99,
+      amount: 999,
       date: '2025-01-14T15:45:00Z',
       status: 'completed',
       method: 'paypal'
@@ -306,7 +306,7 @@ export const MOCK_DATA = {
       id: 3,
       description: 'Starter Plan Subscription',
       customer: 'Mike Johnson',
-      amount: 29,
+      amount: 199,
       date: '2025-01-13T09:20:00Z',
       status: 'pending',
       method: 'bank_transfer'
@@ -315,7 +315,7 @@ export const MOCK_DATA = {
       id: 4,
       description: 'Professional Plan Subscription',
       customer: 'Sarah Wilson',
-      amount: 49,
+      amount: 499,
       date: '2025-01-12T14:15:00Z',
       status: 'completed',
       method: 'credit_card'
@@ -324,7 +324,7 @@ export const MOCK_DATA = {
       id: 5,
       description: 'Enterprise Plan Subscription',
       customer: 'David Brown',
-      amount: 99,
+      amount: 999,
       date: '2025-01-11T11:30:00Z',
       status: 'completed',
       method: 'credit_card'
@@ -351,7 +351,7 @@ export const MOCK_DATA = {
     },
     billing: {
       plan: 'enterprise',
-      amount: 299,
+      amount: 999,
       nextBilling: '2025-02-15T00:00:00Z'
     }
   }
