@@ -3,191 +3,809 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Orchestrator Widget Test</title>
+    <title>AI Orchestrator - Live Demo Store</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            background: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+
         .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
             text-align: center;
             margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .status-banner {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .status-banner h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
         .demo-store {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .product {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .product img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .product:hover img {
+            transform: scale(1.05);
+        }
+
+        .product h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 15px 0;
+            color: #2d3748;
+        }
+
+        .product p {
+            color: #718096;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .product .price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e53e3e;
+            margin: 20px 0;
+            text-shadow: 0 2px 4px rgba(229, 62, 62, 0.2);
+        }
+
+        .product button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .product button:hover::before {
+            left: 100%;
+        }
+
+        .product button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .chat-info {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chat-info h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .chat-info p {
+            font-size: 1.1rem;
+            color: #718096;
+            margin-bottom: 25px;
+        }
+
+        .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-            margin-bottom: 30px;
+            margin-top: 30px;
         }
-        .product {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
+
+        .feature {
+            background: linear-gradient(135deg, #f7fafc, #edf2f7);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: left;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease;
         }
-        .product img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 4px;
-            margin-bottom: 10px;
+
+        .feature:hover {
+            transform: translateX(10px);
         }
-        .product h3 {
-            margin: 10px 0;
-            color: #333;
+
+        .feature i {
+            color: #667eea;
+            margin-right: 10px;
+            font-size: 1.2rem;
         }
-        .product .price {
-            font-size: 18px;
-            font-weight: bold;
-            color: #e74c3c;
-            margin: 10px 0;
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .demo-store {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .product {
+                padding: 20px;
+            }
+
+            .product img {
+                height: 200px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .chat-info {
+                padding: 20px;
+            }
+
+            .chat-info h3 {
+                font-size: 1.5rem;
+            }
         }
-        .product button {
-            background: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .product {
+                padding: 15px;
+            }
+
+            .product img {
+                height: 180px;
+            }
+
+            .product h3 {
+                font-size: 1.2rem;
+            }
+
+            .product .price {
+                font-size: 1.5rem;
+            }
+
+            .product button {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+
+        /* Chat Widget Styles */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-toggle {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            border: 3px solid white;
+        }
+
+        .chat-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .chat-toggle i {
+            color: white;
+            font-size: 24px;
+        }
+
+        .chat-window {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-header h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .chat-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8fafc;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .message.bot {
+            flex-direction: row;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        .message-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .message.bot .message-avatar {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .message.user .message-avatar {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .message-content {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 18px;
+            max-width: 80%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .chat-input {
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 25px;
+            outline: none;
             font-size: 14px;
         }
-        .product button:hover {
-            background: #2980b9;
+
+        .chat-input input:focus {
+            border-color: #667eea;
         }
-        .status {
+
+        .chat-send {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-send:hover {
+            transform: scale(1.05);
+        }
+
+        /* Mobile Chat Widget */
+        @media (max-width: 768px) {
+            .chat-window {
+                width: calc(100vw - 40px);
+                height: calc(100vh - 120px);
+                bottom: 80px;
+                right: 20px;
+                left: 20px;
+            }
+
+            .chat-toggle {
+                width: 60px;
+                height: 60px;
+            }
+
+            .chat-toggle i {
+                font-size: 20px;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Success Modal */
+        .success-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .success-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
             text-align: center;
-            padding: 20px;
-            background: #e8f5e8;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            max-width: 400px;
+            margin: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
         }
-        .status.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+
+        .success-modal h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2d3748;
+        }
+
+        .success-modal p {
+            color: #718096;
+            margin-bottom: 25px;
+        }
+
+        .success-modal button {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .success-modal button:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🛍️ Demo Shopify Store</h1>
-            <p>Test your AI Orchestrator chatbot widget integration</p>
+            <h1>🛍️ AI Orchestrator Live Demo</h1>
+            <p>Experience the future of e-commerce with our advanced AI chatbot integration</p>
         </div>
 
-        <div class="status success">
-            <h3>✅ Widget Integration Active</h3>
-            <p>Your AI Orchestrator chatbot is now live on this demo store!</p>
+        <div class="status-banner">
+            <h3><i class="fas fa-robot"></i> AI Assistant Active</h3>
+            <p>Your intelligent shopping assistant is ready to help customers with any questions!</p>
         </div>
 
         <div class="demo-store">
             <div class="product">
-                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=200&fit=crop" alt="Wireless Headphones">
-                <h3>Wireless Headphones</h3>
-                <p>Premium quality wireless headphones with noise cancellation</p>
-                <div class="price">$199.99</div>
-                <button onclick="alert('Added to cart! Your chatbot can help with product questions.')">Add to Cart</button>
-            </div>
-
-            <div class="product">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300&h=200&fit=crop" alt="Smart Watch">
-                <h3>Smart Watch</h3>
-                <p>Advanced fitness tracking and health monitoring</p>
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop&q=80" alt="Wireless Headphones">
+                <h3>Premium Wireless Headphones</h3>
+                <p>Experience crystal-clear sound with active noise cancellation and 30-hour battery life</p>
                 <div class="price">$299.99</div>
-                <button onclick="alert('Added to cart! Your chatbot can help with sizing and features.')">Add to Cart</button>
+                <button onclick="showSuccessModal('Premium Wireless Headphones')">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
             </div>
 
             <div class="product">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=200&fit=crop" alt="Running Shoes">
-                <h3>Running Shoes</h3>
-                <p>Lightweight and comfortable running shoes</p>
-                <div class="price">$129.99</div>
-                <button onclick="alert('Added to cart! Your chatbot can help with sizing and returns.')">Add to Cart</button>
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop&q=80" alt="Smart Watch">
+                <h3>Smart Fitness Watch</h3>
+                <p>Track your health with advanced sensors, GPS, and 7-day battery life</p>
+                <div class="price">$399.99</div>
+                <button onclick="showSuccessModal('Smart Fitness Watch')">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
             </div>
 
             <div class="product">
-                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=300&h=200&fit=crop" alt="Laptop">
-                <h3>Gaming Laptop</h3>
-                <p>High-performance gaming laptop with RTX graphics</p>
-                <div class="price">$1,299.99</div>
-                <button onclick="alert('Added to cart! Your chatbot can help with specifications and warranty.')">Add to Cart</button>
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop&q=80" alt="Running Shoes">
+                <h3>Professional Running Shoes</h3>
+                <p>Lightweight, breathable design with advanced cushioning technology</p>
+                <div class="price">$149.99</div>
+                <button onclick="showSuccessModal('Professional Running Shoes')">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+            </div>
+
+            <div class="product">
+                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop&q=80" alt="Gaming Laptop">
+                <h3>Gaming Laptop Pro</h3>
+                <p>High-performance gaming with RTX 4080 graphics and 32GB RAM</p>
+                <div class="price">$2,499.99</div>
+                <button onclick="showSuccessModal('Gaming Laptop Pro')">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+            </div>
+
+            <div class="product">
+                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=300&fit=crop&q=80" alt="Wireless Earbuds">
+                <h3>True Wireless Earbuds</h3>
+                <p>Premium sound quality with wireless charging case and noise isolation</p>
+                <div class="price">$199.99</div>
+                <button onclick="showSuccessModal('True Wireless Earbuds')">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
+            </div>
+
+            <div class="product">
+                <img src="https://images.unsplash.com/photo-1593642702821-c8da6771f0c6?w=400&h=300&fit=crop&q=80" alt="Mechanical Keyboard">
+                <h3>RGB Mechanical Keyboard</h3>
+                <p>Professional gaming keyboard with customizable RGB lighting and tactile switches</p>
+                <div class="price">$179.99</div>
+                <button onclick="showSuccessModal('RGB Mechanical Keyboard')">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                </button>
             </div>
         </div>
 
-        <div style="text-align: center; margin-top: 30px;">
-            <h3>🤖 Chat with our AI Assistant!</h3>
-            <p>Click the chat widget in the bottom right corner to test your chatbot integration.</p>
-            <p>The chatbot can help customers with:</p>
-            <ul style="text-align: left; max-width: 400px; margin: 0 auto;">
-                <li>Product information and specifications</li>
-                <li>Sizing and compatibility questions</li>
-                <li>Order status and shipping</li>
-                <li>Returns and exchanges</li>
-                <li>Technical support</li>
-            </ul>
+        <div class="chat-info">
+            <h3><i class="fas fa-robot"></i> Chat with our AI Assistant!</h3>
+            <p>Click the chat widget in the bottom right corner to experience our intelligent shopping assistant</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Product Information</strong><br>
+                    Get detailed specs, compatibility, and features
+                </div>
+                <div class="feature">
+                    <i class="fas fa-ruler"></i>
+                    <strong>Sizing & Fit</strong><br>
+                    Personalized recommendations based on preferences
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shipping-fast"></i>
+                    <strong>Order Tracking</strong><br>
+                    Real-time updates on your order status
+                </div>
+                <div class="feature">
+                    <i class="fas fa-undo"></i>
+                    <strong>Returns & Exchanges</strong><br>
+                    Hassle-free return process assistance
+                </div>
+                <div class="feature">
+                    <i class="fas fa-tools"></i>
+                    <strong>Technical Support</strong><br>
+                    24/7 expert help for any technical issues
+                </div>
+                <div class="feature">
+                    <i class="fas fa-percent"></i>
+                    <strong>Deals & Discounts</strong><br>
+                    Exclusive offers and personalized promotions
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- AI Orchestrator Chatbot Widget -->
-    <script>
-        // Mock configuration for demo
-        window.aiOrchestratorConfig = {
-            chatbotId: 'demo_chatbot_001',
-            name: 'AI Assistant',
-            primaryColor: '#4F46E5',
-            gradient: { from: '#4F46E5', to: '#2563EB' },
-            theme: 'light',
-            welcomeMessage: 'Hi! I\'m your AI shopping assistant. How can I help you today?',
-            language: 'English',
-            fontFamily: 'Inter',
-            fontSize: 'md',
-            bubbleShape: 'rounded-xl'
-        };
-    </script>
-    
-    <!-- Mock widget script for demo -->
-    <script>
-        // Simulate widget loading
-        setTimeout(() => {
-            const widget = document.createElement('div');
-            widget.id = 'ai-orchestrator-widget';
-            widget.innerHTML = `
-                <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;">
-                    <div id="chat-toggle" style="
-                        width: 60px; height: 60px; 
-                        background: linear-gradient(135deg, #4F46E5, #2563EB);
-                        border-radius: 50%; 
-                        display: flex; 
-                        align-items: center; 
-                        justify-content: center;
-                        cursor: pointer;
-                        box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-                        transition: transform 0.2s;
-                    " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-                        <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-                            <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
-                        </svg>
+    <!-- Chat Widget -->
+    <div class="chat-widget">
+        <div class="chat-toggle" onclick="toggleChat()">
+            <i class="fas fa-comments"></i>
+        </div>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h4><i class="fas fa-robot"></i> AI Assistant</h4>
+                <button class="chat-close" onclick="toggleChat()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot">
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        Hi! I'm your AI shopping assistant. How can I help you today? I can assist with product information, sizing, orders, and more!
                     </div>
                 </div>
-            `;
-            document.body.appendChild(widget);
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Ask me anything about our products..." onkeypress="handleKeyPress(event)">
+                <button class="chat-send" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="success-modal-content">
+            <h3><i class="fas fa-check-circle" style="color: #10b981; font-size: 3rem; margin-bottom: 20px;"></i>Added to Cart!</h3>
+            <p id="modalMessage">Your item has been added to your cart successfully!</p>
+            <p style="color: #667eea; font-weight: 600; margin-top: 15px;">💡 <strong>Pro Tip:</strong> Ask our AI assistant about sizing, compatibility, or any product questions!</p>
+            <button onclick="closeSuccessModal()">Continue Shopping</button>
+        </div>
+    </div>
+
+    <script>
+        // Chat functionality
+        let chatOpen = false;
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+
+        function toggleChat() {
+            const chatWindow = document.getElementById('chatWindow');
+            chatOpen = !chatOpen;
+            chatWindow.style.display = chatOpen ? 'flex' : 'none';
             
-            // Add click handler
-            document.getElementById('chat-toggle').addEventListener('click', () => {
-                alert('🤖 Chat widget clicked!\n\nIn a real implementation, this would open the chat interface.\n\nYour AI Orchestrator chatbot is successfully integrated!');
-            });
-        }, 1000);
+            if (chatOpen) {
+                chatInput.focus();
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
+
+            // Add user message
+            addMessage(message, 'user');
+            chatInput.value = '';
+
+            // Simulate AI response
+            setTimeout(() => {
+                const responses = [
+                    "That's a great question! Let me help you with that. This product features advanced technology and comes with a 2-year warranty.",
+                    "I'd be happy to help! Based on your needs, I'd recommend checking the sizing guide or comparing with similar products.",
+                    "Excellent choice! This item is currently in stock and ships within 1-2 business days. Would you like to know about our return policy?",
+                    "I can provide detailed specifications for that product. It includes premium materials and comes with free shipping on orders over $100.",
+                    "Great question! Our AI assistant can help with sizing, compatibility, and any technical specifications you need to know."
+                ];
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                addMessage(randomResponse, 'bot');
+            }, 1000);
+        }
+
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = sender === 'bot' ? 'AI' : 'You';
+            
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            content.textContent = text;
+            
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(content);
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Success modal functionality
+        function showSuccessModal(productName) {
+            const modal = document.getElementById('successModal');
+            const modalMessage = document.getElementById('modalMessage');
+            modalMessage.textContent = `${productName} has been added to your cart successfully!`;
+            modal.style.display = 'flex';
+            
+            // Auto close after 4 seconds
+            setTimeout(() => {
+                closeSuccessModal();
+            }, 4000);
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('successModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSuccessModal();
+            }
+        });
+
+        // Initialize demo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add some demo messages after a delay
+            setTimeout(() => {
+                if (!chatOpen) {
+                    addMessage("👋 Welcome to our store! I'm here to help you find the perfect products. What are you looking for today?", 'bot');
+                }
+            }, 2000);
+        });
     </script>
 </body>
 </html>
-
