@@ -114,33 +114,33 @@ const Dashboard: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
       <div className="max-w-7xl mx-auto" data-testid="dashboard">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">🏠 Dashboard</h1>
-        <p className="text-gray-600 mt-2">Complete overview of your AI system performance</p>
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">🏠 Dashboard</h1>
+        <p className="text-sm sm:text-base text-gray-600 mt-2">Complete overview of your AI system performance</p>
         </div>
         
         {/* Time Range Selector */}
-      <div className="bg-white rounded-lg shadow p-6 mb-8 hover:shadow-xl transition-all duration-500 hover:scale-[1.01] border border-transparent hover:border-gray-200">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900">Time Range</h2>
-          <div className="flex items-center space-x-4">
-            <div className="flex space-x-2">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6 sm:mb-8 hover:shadow-xl transition-all duration-500 hover:scale-[1.01] border border-transparent hover:border-gray-200">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+          <h2 className="text-base sm:text-lg font-semibold text-gray-900">Time Range</h2>
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <div className="flex flex-wrap gap-2">
             {(['24h', '7d', '30d', '90d'] as const).map((range) => (
               <button
                 key={range}
                 onClick={() => setTimeRange(range)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1 ${
+                  className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1 ${
                     timeRange === range
                       ? 'bg-blue-600 text-white shadow-lg'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  {range === '24h' ? '24 Hours' : 
-                   range === '7d' ? '7 Days' :
-                   range === '30d' ? '30 Days' : '90 Days'}
+                  {range === '24h' ? '24H' : 
+                   range === '7d' ? '7D' :
+                   range === '30d' ? '30D' : '90D'}
               </button>
             ))}
           </div>
@@ -149,93 +149,93 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
           <div className="flex items-center">
             <div className="p-2 bg-blue-100 rounded-lg">
-              <span className="text-2xl">💬</span>
+              <span className="text-xl sm:text-2xl">💬</span>
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Total Messages</p>
-              <p className="text-2xl font-bold text-gray-900">
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm font-medium text-gray-600">Total Messages</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">
                 {statsData.totalMessages || 0}
               </p>
-              <p className="text-sm text-green-600">+12% vs last month</p>
+              <p className="text-xs sm:text-sm text-green-600">+12% vs last month</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-green-200">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-green-200">
           <div className="flex items-center">
             <div className="p-2 bg-green-100 rounded-lg">
-              <span className="text-2xl">🤖</span>
+              <span className="text-xl sm:text-2xl">🤖</span>
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Active Chatbots</p>
-              <p className="text-2xl font-bold text-gray-900">
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm font-medium text-gray-600">Active Chatbots</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">
                 {statsData.totalChatbots || 0}
               </p>
-              <p className="text-sm text-green-600">+8% vs last month</p>
+              <p className="text-xs sm:text-sm text-green-600">+8% vs last month</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-purple-200">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-purple-200">
           <div className="flex items-center">
             <div className="p-2 bg-purple-100 rounded-lg">
-              <span className="text-2xl">👥</span>
+              <span className="text-xl sm:text-2xl">👥</span>
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Active Users</p>
-              <p className="text-2xl font-bold text-gray-900">
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm font-medium text-gray-600">Active Users</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">
                 {statsData.activeUsers || 0}
               </p>
-              <p className="text-sm text-green-600">+15% vs last month</p>
+              <p className="text-xs sm:text-sm text-green-600">+15% vs last month</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-yellow-200">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-yellow-200">
           <div className="flex items-center">
             <div className="p-2 bg-yellow-100 rounded-lg">
-              <span className="text-2xl">⚡</span>
+              <span className="text-xl sm:text-2xl">⚡</span>
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Response Time</p>
-              <p className="text-2xl font-bold text-gray-900">
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm font-medium text-gray-600">Response Time</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">
                 {statsData.responseTime || 0}ms
               </p>
-              <p className="text-sm text-red-600">-5% vs last month</p>
+              <p className="text-xs sm:text-sm text-red-600">-5% vs last month</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-green-200">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-green-200">
           <div className="flex items-center">
             <div className="p-2 bg-green-100 rounded-lg">
-              <span className="text-2xl">💰</span>
+              <span className="text-xl sm:text-2xl">💰</span>
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Revenue</p>
-              <p className="text-2xl font-bold text-gray-900">
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm font-medium text-gray-600">Revenue</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">
                 ${(statsData.revenue || 0).toLocaleString()}
               </p>
-              <p className="text-sm text-green-600">+23% vs last month</p>
+              <p className="text-xs sm:text-sm text-green-600">+23% vs last month</p>
           </div>
         </div>
       </div>
 
-        <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
+        <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
           <div className="flex items-center">
             <div className="p-2 bg-blue-100 rounded-lg">
-              <span className="text-2xl">📊</span>
+              <span className="text-xl sm:text-2xl">📊</span>
             </div>
-            <div className="ml-4">
-              <p className="text-sm font-medium text-gray-600">Conversions</p>
-              <p className="text-2xl font-bold text-gray-900">
+            <div className="ml-3 sm:ml-4">
+              <p className="text-xs sm:text-sm font-medium text-gray-600">Conversions</p>
+              <p className="text-xl sm:text-2xl font-bold text-gray-900">
                 {statsData.conversions || 0}%
               </p>
-              <p className="text-sm text-green-600">+7% vs last month</p>
+              <p className="text-xs sm:text-sm text-green-600">+7% vs last month</p>
             </div>
           </div>
         </div>
@@ -506,36 +506,36 @@ const Dashboard: React.FC = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white rounded-lg shadow p-6 hover:shadow-xl transition-all duration-500 hover:scale-[1.01] border border-transparent hover:border-gray-200">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">⚡ Quick Actions</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-xl transition-all duration-500 hover:scale-[1.01] border border-transparent hover:border-gray-200">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">⚡ Quick Actions</h3>
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <button
             onClick={() => navigate('/chatbot')}
-            className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-4 rounded-lg hover:from-purple-700 hover:to-purple-800 flex items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
+            className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-3 sm:px-6 py-3 sm:py-4 rounded-lg hover:from-purple-700 hover:to-purple-800 flex items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
           >
-            <span className="mr-2 text-xl">🤖</span>
-            <span className="font-medium">New Chatbot</span>
+            <span className="mr-1 sm:mr-2 text-lg sm:text-xl">🤖</span>
+            <span className="text-sm sm:text-base font-medium">New Chatbot</span>
           </button>
           <button
             onClick={() => navigate('/workflows')}
-            className="bg-gradient-to-r from-green-600 to-green-700 text-white px-6 py-4 rounded-lg hover:from-green-700 hover:to-green-800 flex items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
+            className="bg-gradient-to-r from-green-600 to-green-700 text-white px-3 sm:px-6 py-3 sm:py-4 rounded-lg hover:from-green-700 hover:to-green-800 flex items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
           >
-            <span className="mr-2 text-xl">⚡</span>
-            <span className="font-medium">Create Workflow</span>
+            <span className="mr-1 sm:mr-2 text-lg sm:text-xl">⚡</span>
+            <span className="text-sm sm:text-base font-medium">Create Workflow</span>
           </button>
           <button
             onClick={() => navigate('/analytics')}
-            className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-4 rounded-lg hover:from-blue-700 hover:to-blue-800 flex items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
+            className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-3 sm:px-6 py-3 sm:py-4 rounded-lg hover:from-blue-700 hover:to-blue-800 flex items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
           >
-            <span className="mr-2 text-xl">📊</span>
-            <span className="font-medium">View Analytics</span>
+            <span className="mr-1 sm:mr-2 text-lg sm:text-xl">📊</span>
+            <span className="text-sm sm:text-base font-medium">View Analytics</span>
           </button>
           <button
             onClick={() => navigate('/settings')}
-            className="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-6 py-4 rounded-lg hover:from-gray-700 hover:to-gray-800 flex items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
+            className="bg-gradient-to-r from-gray-600 to-gray-700 text-white px-3 sm:px-6 py-3 sm:py-4 rounded-lg hover:from-gray-700 hover:to-gray-800 flex items-center justify-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
           >
-            <span className="mr-2 text-xl">⚙️</span>
-            <span className="font-medium">Settings</span>
+            <span className="mr-1 sm:mr-2 text-lg sm:text-xl">⚙️</span>
+            <span className="text-sm sm:text-base font-medium">Settings</span>
           </button>
         </div>
         </div>

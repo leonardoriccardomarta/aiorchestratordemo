@@ -706,8 +706,8 @@
             <p id="modalMessage">Your item has been added to your cart successfully!</p>
             <p style="color: #667eea; font-weight: 600; margin-top: 15px;">💡 <strong>Pro Tip:</strong> Ask our AI assistant about sizing, compatibility, or any product questions!</p>
             <button onclick="closeSuccessModal()">Continue Shopping</button>
-        </div>
-    </div>
+                    </div>
+                </div>
 
     <script>
         // Chat functionality
@@ -741,15 +741,7 @@
 
             // Simulate AI response
             setTimeout(() => {
-                const responses = [
-                    "That's a great question! Let me help you with that. This product features advanced technology and comes with a 2-year warranty.",
-                    "I'd be happy to help! Based on your needs, I'd recommend checking the sizing guide or comparing with similar products.",
-                    "Excellent choice! This item is currently in stock and ships within 1-2 business days. Would you like to know about our return policy?",
-                    "I can provide detailed specifications for that product. It includes premium materials and comes with free shipping on orders over $100.",
-                    "Great question! Our AI assistant can help with sizing, compatibility, and any technical specifications you need to know."
-                ];
-                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                addMessage(randomResponse, 'bot');
+                addMessage("🤖 This is a demo! In production, I would provide detailed, intelligent responses based on your specific question. Our AI can help with product information, sizing, orders, returns, and technical support.", 'bot');
             }, 1000);
         }
 
@@ -799,12 +791,12 @@
 
         // Initialize demo
         document.addEventListener('DOMContentLoaded', function() {
-            // Add some demo messages after a delay
+            // Add single initial message
             setTimeout(() => {
                 if (!chatOpen) {
-                    addMessage("👋 Welcome to our store! I'm here to help you find the perfect products. What are you looking for today?", 'bot');
+                    addMessage("👋 Welcome to our AI Orchestrator demo! This is a demonstration of our advanced chatbot integration. Ask me anything about our products!", 'bot');
                 }
-            }, 2000);
+            }, 1000);
         });
     </script>
 </body>

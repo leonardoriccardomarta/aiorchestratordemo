@@ -246,64 +246,64 @@ const Chatbot: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">🤖 Chatbot Management</h1>
-          <p className="text-gray-600 mt-2">Create and manage your advanced AI assistants</p>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">🤖 Chatbot Management</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-2">Create and manage your advanced AI assistants</p>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
             <div className="flex items-center">
               <div className="p-2 bg-blue-100 rounded-lg">
-                <span className="text-2xl">🤖</span>
+                <span className="text-xl sm:text-2xl">🤖</span>
               </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Chatbots</p>
-                <p className="text-2xl font-bold text-gray-900">{chatbots.length}</p>
+              <div className="ml-3 sm:ml-4">
+                <p className="text-xs sm:text-sm font-medium text-gray-600">Total Chatbots</p>
+                <p className="text-xl sm:text-2xl font-bold text-gray-900">{chatbots.length}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
             <div className="flex items-center">
               <div className="p-2 bg-green-100 rounded-lg">
-                <span className="text-2xl">✅</span>
+                <span className="text-xl sm:text-2xl">✅</span>
               </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Active</p>
-                <p className="text-2xl font-bold text-gray-900">
+              <div className="ml-3 sm:ml-4">
+                <p className="text-xs sm:text-sm font-medium text-gray-600">Active</p>
+                <p className="text-xl sm:text-2xl font-bold text-gray-900">
                   {chatbots.filter(bot => bot.isActive).length}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
             <div className="flex items-center">
               <div className="p-2 bg-yellow-100 rounded-lg">
-                <span className="text-2xl">💬</span>
+                <span className="text-xl sm:text-2xl">💬</span>
               </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Messages Today</p>
-                <p className="text-2xl font-bold text-gray-900">
+              <div className="ml-3 sm:ml-4">
+                <p className="text-xs sm:text-sm font-medium text-gray-600">Messages Today</p>
+                <p className="text-xl sm:text-2xl font-bold text-gray-900">
                   {chatbots.reduce((sum, bot) => sum + (bot.metrics?.todayMessages || 0), 0)}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
             <div className="flex items-center">
               <div className="p-2 bg-purple-100 rounded-lg">
-                <span className="text-2xl">🎯</span>
+                <span className="text-xl sm:text-2xl">🎯</span>
               </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Satisfaction</p>
-                <p className="text-2xl font-bold text-gray-900">94%</p>
+              <div className="ml-3 sm:ml-4">
+                <p className="text-xs sm:text-sm font-medium text-gray-600">Satisfaction</p>
+                <p className="text-xl sm:text-2xl font-bold text-gray-900">94%</p>
               </div>
             </div>
           </div>
@@ -313,45 +313,45 @@ const Chatbot: React.FC = () => {
         <div className="flex justify-center items-center mb-6">
           <button
             onClick={() => setShowCustomization(true)}
-            className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-3 rounded-lg hover:from-purple-700 hover:to-purple-800 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
+            className="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 sm:px-6 py-3 rounded-lg hover:from-purple-700 hover:to-purple-800 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
           >
             <span className="mr-2">🎨</span>
-            Create & Customize Chatbot
+            <span className="text-sm sm:text-base">Create & Customize Chatbot</span>
           </button>
         </div>
 
         {/* Chatbots List */}
         <div className="bg-white rounded-lg shadow hover:shadow-xl transition-all duration-500 hover:scale-[1.01] border border-transparent hover:border-gray-200">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">Your Chatbots</h2>
+          <div className="p-4 sm:p-6 border-b border-gray-200">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Your Chatbots</h2>
           </div>
           
           <div className="divide-y divide-gray-200">
             {chatbots.length === 0 ? (
-              <div className="p-12 text-center">
-                <div className="text-6xl mb-4">🤖</div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No chatbots created</h3>
-                <p className="text-gray-600 mb-4">Create your first AI assistant to get started</p>
+              <div className="p-8 sm:p-12 text-center">
+                <div className="text-4xl sm:text-6xl mb-4">🤖</div>
+                <h3 className="text-base sm:text-lg font-medium text-gray-900 mb-2">No chatbots created</h3>
+                <p className="text-sm sm:text-base text-gray-600 mb-4">Create your first AI assistant to get started</p>
                 <button
                   onClick={() => setShowCustomization(true)}
-                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 text-sm sm:text-base"
                 >
                   Create First Chatbot
                 </button>
               </div>
             ) : (
               chatbots.map((chatbot) => (
-                <div key={chatbot.id} className="p-6 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all duration-500 hover:shadow-lg hover:scale-[1.02] border border-transparent hover:border-blue-200 rounded-lg">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <span className="text-xl">🤖</span>
+                <div key={chatbot.id} className="p-4 sm:p-6 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all duration-500 hover:shadow-lg hover:scale-[1.02] border border-transparent hover:border-blue-200 rounded-lg">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+                    <div className="flex items-center space-x-3 sm:space-x-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <span className="text-lg sm:text-xl">🤖</span>
                       </div>
-                      <div>
-                        <h3 className="text-lg font-medium text-gray-900">{chatbot.name}</h3>
-                        <p className="text-gray-600">{chatbot.description}</p>
-                        <div className="space-y-2">
-                          <div className="flex items-center space-x-4">
+                      <div className="flex-1">
+                        <h3 className="text-base sm:text-lg font-medium text-gray-900">{chatbot.name}</h3>
+                        <p className="text-sm sm:text-base text-gray-600">{chatbot.description}</p>
+                        <div className="space-y-2 mt-2">
+                          <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                             <span className={`px-2 py-1 rounded-full text-xs transition-all duration-300 ${
                               chatbot.isActive 
                                 ? 'bg-green-100 text-green-800' 
@@ -361,11 +361,11 @@ const Chatbot: React.FC = () => {
                             </span>
                             {chatbot.metrics && (
                               <>
-                                <span className="text-sm text-gray-500">
-                                  💬 {chatbot.metrics.todayMessages || 0} messages today
+                                <span className="text-xs sm:text-sm text-gray-500">
+                                  💬 {chatbot.metrics.todayMessages || 0} today
                                 </span>
-                                <span className="text-sm text-gray-500">
-                                  ⚡ {chatbot.metrics.avgResponseTime || 0}ms avg response
+                                <span className="text-xs sm:text-sm text-gray-500">
+                                  ⚡ {chatbot.metrics.avgResponseTime || 0}ms
                                 </span>
                               </>
                             )}
@@ -374,10 +374,10 @@ const Chatbot: React.FC = () => {
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-2">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-2">
                       <button
                         onClick={() => handleEditChatbot(chatbot)}
-                        className="text-blue-600 hover:text-blue-800 transition-all duration-300 hover:scale-105"
+                        className="text-blue-600 hover:text-blue-800 transition-all duration-300 hover:scale-105 text-sm sm:text-base"
                       >
                         ✏️ Edit
                       </button>
@@ -386,13 +386,13 @@ const Chatbot: React.FC = () => {
                           setSelectedChatbot(chatbot);
                           setShowCustomization(true);
                         }}
-                        className="text-purple-600 hover:text-purple-800 transition-all duration-300 hover:scale-105"
+                        className="text-purple-600 hover:text-purple-800 transition-all duration-300 hover:scale-105 text-sm sm:text-base"
                       >
                         🎨 Customize
                       </button>
                       <button
                         onClick={() => handleDeleteChatbot(chatbot.id)}
-                        className="text-red-600 hover:text-red-800 transition-all duration-300 hover:scale-105"
+                        className="text-red-600 hover:text-red-800 transition-all duration-300 hover:scale-105 text-sm sm:text-base"
                       >
                         🗑️ Delete
                       </button>

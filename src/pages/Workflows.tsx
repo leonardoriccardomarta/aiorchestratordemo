@@ -336,76 +336,76 @@ const Workflows: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">⚡ Workflow Automation</h1>
-          <p className="text-gray-600 mt-2">Create and manage advanced automated processes</p>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">⚡ Workflow Automation</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-2">Create and manage advanced automated processes</p>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
             <div className="flex items-center">
               <div className="p-2 bg-blue-100 rounded-lg">
-                <span className="text-2xl">⚡</span>
+                <span className="text-xl sm:text-2xl">⚡</span>
               </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Total Workflows</p>
-                <p className="text-2xl font-bold text-gray-900">{workflows.length}</p>
+              <div className="ml-3 sm:ml-4">
+                <p className="text-xs sm:text-sm font-medium text-gray-600">Total Workflows</p>
+                <p className="text-xl sm:text-2xl font-bold text-gray-900">{workflows.length}</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-green-200">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-green-200">
             <div className="flex items-center">
               <div className="p-2 bg-green-100 rounded-lg">
-                <span className="text-2xl">✅</span>
+                <span className="text-xl sm:text-2xl">✅</span>
               </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Active</p>
-                <p className="text-2xl font-bold text-gray-900">
+              <div className="ml-3 sm:ml-4">
+                <p className="text-xs sm:text-sm font-medium text-gray-600">Active</p>
+                <p className="text-xl sm:text-2xl font-bold text-gray-900">
                   {workflows.filter(w => w.status === 'active').length}
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-yellow-200">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-yellow-200">
             <div className="flex items-center">
               <div className="p-2 bg-yellow-100 rounded-lg">
-                <span className="text-2xl">🔄</span>
+                <span className="text-xl sm:text-2xl">🔄</span>
               </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Today's Executions</p>
-                <p className="text-2xl font-bold text-gray-900">1,247</p>
+              <div className="ml-3 sm:ml-4">
+                <p className="text-xs sm:text-sm font-medium text-gray-600">Today's Executions</p>
+                <p className="text-xl sm:text-2xl font-bold text-gray-900">1,247</p>
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-purple-200">
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 hover:shadow-xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-purple-200">
             <div className="flex items-center">
               <div className="p-2 bg-purple-100 rounded-lg">
-                <span className="text-2xl">⏱️</span>
+                <span className="text-xl sm:text-2xl">⏱️</span>
               </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Average Time</p>
-                <p className="text-2xl font-bold text-gray-900">2.3s</p>
+              <div className="ml-3 sm:ml-4">
+                <p className="text-xs sm:text-sm font-medium text-gray-600">Average Time</p>
+                <p className="text-xl sm:text-2xl font-bold text-gray-900">2.3s</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Actions */}
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex space-x-4">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 space-y-4 sm:space-y-0">
+          <div className="flex flex-wrap gap-3 sm:gap-4">
             <button
               onClick={handleCreateWorkflow}
-              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-blue-800 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-3 sm:px-4 py-2 rounded-lg hover:from-blue-700 hover:to-blue-800 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
             >
               <span className="mr-2">➕</span>
-              Create New Workflow
+              <span className="text-sm sm:text-base">Create New Workflow</span>
             </button>
             <button 
               onClick={() => {
@@ -453,9 +453,9 @@ const Workflows: React.FC = () => {
                 document.body.appendChild(modal);
                 setTimeout(() => modal.remove(), 5000);
               }} 
-              className="bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-2 rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
+              className="bg-gradient-to-r from-green-600 to-green-700 text-white px-3 sm:px-4 py-2 rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
             >
-              📊 Performance
+              <span className="text-sm sm:text-base">📊 Performance</span>
             </button>
             <button 
               onClick={() => {
