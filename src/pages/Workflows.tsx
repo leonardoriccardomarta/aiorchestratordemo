@@ -210,46 +210,78 @@ const Workflows: React.FC = () => {
   const handleDeleteWorkflow = (workflow: any) => {
     // Show custom confirmation modal
     const confirmModal = document.createElement('div');
+    confirmModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
     confirmModal.innerHTML = `
-      <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: flex; align-items: center; justify-content: center;">
-        <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
-          <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
-          <h3 style="font-size: 20px; font-weight: 600; color: #1f2937; margin-bottom: 8px;">Delete Workflow</h3>
-          <p style="color: #6b7280; margin-bottom: 24px;">Are you sure you want to delete "${workflow.name}"? This action cannot be undone.</p>
-          <div style="display: flex; gap: 12px; justify-content: center;">
-            <button id="cancelDelete" style="padding: 10px 20px; border: 1px solid #d1d5db; background: white; color: #374151; border-radius: 6px; cursor: pointer; font-weight: 500;">Cancel</button>
-            <button id="confirmDelete" style="padding: 10px 20px; background: #dc2626; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">Delete</button>
+      <div class="bg-white rounded-xl max-w-md w-full p-6">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+            </svg>
           </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">Delete Workflow</h3>
+            <p class="text-gray-600">This action cannot be undone</p>
+          </div>
+        </div>
+        <div class="bg-red-50 rounded-lg p-3 mb-4">
+          <p class="text-sm text-red-800">Are you sure you want to delete this workflow? This action cannot be undone.</p>
+        </div>
+        <div class="flex space-x-3">
+          <button onclick="this.closest('.fixed').remove()" class="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 font-medium">
+            Cancel
+          </button>
+          <button id="confirmDelete" class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium">
+            Delete
+          </button>
         </div>
       </div>
     `;
     document.body.appendChild(confirmModal);
     
-    const cancelBtn = confirmModal.querySelector('#cancelDelete');
+    // Add event listener for confirm button
     const confirmBtn = confirmModal.querySelector('#confirmDelete');
-    
-    cancelBtn?.addEventListener('click', () => {
-      document.body.removeChild(confirmModal);
+    confirmBtn?.addEventListener('click', () => {
+      confirmModal.remove();
+      // Proceed with deletion
+      proceedWithWorkflowDeletion(workflow);
     });
     
-    confirmBtn?.addEventListener('click', () => {
-      document.body.removeChild(confirmModal);
-      setWorkflows(prev => prev.filter(w => w.id !== workflow.id));
-      
-      // Show success modal
-      const successModal = document.createElement('div');
-      successModal.innerHTML = `
-        <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: flex; align-items: center; justify-content: center;">
-          <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
-            <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
-            <h3 style="font-size: 20px; font-weight: 600; color: #1f2937; margin-bottom: 8px;">Workflow Deleted</h3>
-            <p style="color: #6b7280; margin-bottom: 24px;">"${workflow.name}" has been successfully deleted.</p>
-            <button onclick="this.parentElement.parentElement.parentElement.remove()" style="padding: 10px 20px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">OK</button>
+    // Add event listener for cancel button
+    const cancelBtn = confirmModal.querySelector('button[onclick]');
+    cancelBtn?.addEventListener('click', () => {
+      confirmModal.remove();
+    });
+  };
+
+  const proceedWithWorkflowDeletion = (workflow: any) => {
+    // Delete from local state immediately
+    setWorkflows(prev => prev.filter(w => w.id !== workflow.id));
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+    modal.innerHTML = `
+      <div class="bg-white rounded-xl max-w-md w-full p-6">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">Workflow Deleted!</h3>
+            <p class="text-gray-600">Removed successfully</p>
           </div>
         </div>
-      `;
-      document.body.appendChild(successModal);
-    });
+        <div class="bg-green-50 rounded-lg p-3 mb-4">
+          <p class="text-sm text-green-800">The workflow has been permanently deleted from your automation system.</p>
+        </div>
+        <button onclick="this.closest('.fixed').remove()" class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium">
+          Continue
+        </button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    setTimeout(() => modal.remove(), 3000);
   };
 
   const handleToggleWorkflowStatus = (workflow: any) => {
@@ -411,7 +443,7 @@ const Workflows: React.FC = () => {
                       </div>
                     </div>
                     <div class="bg-green-50 rounded-lg p-3 mb-4">
-                      <p class="text-sm text-green-800">Performance dashboard opened successfully!</p>
+                      <p class="text-sm text-green-800">This is a demo - in production you would see detailed event information.</p>
                     </div>
                     <button onclick="this.closest('.fixed').remove()" class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium">
                       Continue
@@ -461,7 +493,7 @@ const Workflows: React.FC = () => {
                       </div>
                     </div>
                     <div class="bg-blue-50 rounded-lg p-3 mb-4">
-                      <p class="text-sm text-blue-800">Template gallery opened successfully!</p>
+                      <p class="text-sm text-blue-800">This is a demo - in production you would see detailed event information.</p>
                     </div>
                     <button onclick="this.closest('.fixed').remove()" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
                       Continue

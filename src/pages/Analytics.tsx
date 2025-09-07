@@ -383,7 +383,7 @@ const Analytics: React.FC = () => {
                     </div>
                   </div>
                   <div class="bg-blue-50 rounded-lg p-3 mb-4">
-                    <p class="text-sm text-blue-800">Report will be ready in 2-3 minutes!</p>
+                    <p class="text-sm text-blue-800">This is a demo - in production you would see detailed event information.</p>
                   </div>
                   <button onclick="this.closest('.fixed').remove()" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
                     Continue
@@ -433,7 +433,7 @@ const Analytics: React.FC = () => {
                     </div>
                   </div>
                   <div class="bg-green-50 rounded-lg p-3 mb-4">
-                    <p class="text-sm text-green-800">Download will start automatically!</p>
+                    <p class="text-sm text-green-800">This is a demo - in production you would see detailed event information.</p>
                   </div>
                   <button onclick="this.closest('.fixed').remove()" class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium">
                     Continue
@@ -483,7 +483,7 @@ const Analytics: React.FC = () => {
                     </div>
                   </div>
                   <div class="bg-purple-50 rounded-lg p-3 mb-4">
-                    <p class="text-sm text-purple-800">Alerts will be sent via email and dashboard!</p>
+                    <p class="text-sm text-purple-800">This is a demo - in production you would see detailed event information.</p>
                   </div>
                   <button onclick="this.closest('.fixed').remove()" class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
                     Continue

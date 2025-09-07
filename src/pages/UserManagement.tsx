@@ -156,14 +156,53 @@ const UserManagement: React.FC = () => {
   };
 
   const handleDeleteUser = async (userId: string) => {
-    if (confirm('Sei sicuro di voler eliminare questo utente?')) {
+    // Show custom confirmation modal
+    const confirmModal = document.createElement('div');
+    confirmModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+    confirmModal.innerHTML = `
+      <div class="bg-white rounded-xl max-w-md w-full p-6">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">Delete User</h3>
+            <p class="text-gray-600">This action cannot be undone</p>
+          </div>
+        </div>
+        <div class="bg-red-50 rounded-lg p-3 mb-4">
+          <p class="text-sm text-red-800">Are you sure you want to delete this user? This action cannot be undone.</p>
+        </div>
+        <div class="flex space-x-3">
+          <button onclick="this.closest('.fixed').remove()" class="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 font-medium">
+            Cancel
+          </button>
+          <button id="confirmDelete" class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium">
+            Delete
+          </button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(confirmModal);
+    
+    const cancelBtn = confirmModal.querySelector('#cancelDelete');
+    const confirmBtn = confirmModal.querySelector('#confirmDelete');
+    
+    cancelBtn?.addEventListener('click', () => {
+      document.body.removeChild(confirmModal);
+    });
+    
+    confirmBtn?.addEventListener('click', async () => {
+      document.body.removeChild(confirmModal);
       try {
         await apiService.deleteUser(userId);
         fetchUsers();
       } catch (error) {
         console.error('Errore nell\'eliminazione utente:', error);
       }
-    }
+    });
   };
 
   if (loading) {

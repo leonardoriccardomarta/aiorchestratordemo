@@ -795,7 +795,7 @@ const Payments: React.FC = () => {
                               </div>
                             </div>
                             <div class="bg-blue-50 rounded-lg p-3 mb-4">
-                              <p class="text-sm text-blue-800">Email sent to customer with PDF attachment, payment link, and due date reminder.</p>
+                              <p class="text-sm text-blue-800">This is a demo - in production you would see detailed event information.</p>
                             </div>
                             <button onclick="this.closest('.fixed').remove()" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
                               Continue

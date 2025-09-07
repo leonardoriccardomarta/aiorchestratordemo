@@ -163,13 +163,62 @@ const AffiliateProgram = () => {
     if (stats.pendingPayout >= 50) {
       setShowPaymentModal(true);
     } else {
-      alert('Minimum payout amount is $50. Current pending amount: $' + stats.pendingPayout.toFixed(2));
+      const errorModal = document.createElement('div');
+      errorModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+      errorModal.innerHTML = `
+        <div class="bg-white rounded-xl max-w-md w-full p-6">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+              <svg class="w-6 h-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-lg font-semibold text-gray-900">Minimum Payout Required</h3>
+              <p class="text-gray-600">You need more earnings to request payout</p>
+            </div>
+          </div>
+          <div class="bg-yellow-50 rounded-lg p-3 mb-4">
+            <p class="text-sm text-yellow-800">Minimum payout amount is $50. Current pending amount: $${stats.pendingPayout.toFixed(2)}</p>
+          </div>
+          <button onclick="this.closest('.fixed').remove()" class="w-full px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 font-medium">
+            Continue
+          </button>
+        </div>
+      `;
+      document.body.appendChild(errorModal);
+      setTimeout(() => errorModal.remove(), 3000);
     }
   };
 
   const handleConfirmPayout = () => {
     // Simulate payout processing
-    alert(`Payout of $${stats.pendingPayout.toFixed(2)} has been initiated to your ${selectedPaymentMethod} account. You will receive it within 3-5 business days.`);
+    const successModal = document.createElement('div');
+    successModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+    successModal.innerHTML = `
+      <div class="bg-white rounded-xl max-w-md w-full p-6">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">Payout Initiated!</h3>
+            <p class="text-gray-600">Your payout request has been processed</p>
+          </div>
+        </div>
+        <div class="bg-green-50 rounded-lg p-3 mb-4">
+          <p class="text-sm text-green-800">Payout of $${stats.pendingPayout.toFixed(2)} has been initiated to your ${selectedPaymentMethod} account. You will receive it within 3-5 business days.</p>
+        </div>
+        <button onclick="this.closest('.fixed').remove()" class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium">
+          Continue
+        </button>
+      </div>
+    `;
+    document.body.appendChild(successModal);
+    setTimeout(() => successModal.remove(), 3000);
+    
     setShowPaymentModal(false);
     // Update stats to reflect payout
     setStats(prev => ({

@@ -99,16 +99,30 @@ const Chatbot: React.FC = () => {
   const handleDeleteChatbot = async (id: string) => {
     // Show custom confirmation modal
     const confirmModal = document.createElement('div');
+    confirmModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
     confirmModal.innerHTML = `
-      <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 10000; display: flex; align-items: center; justify-content: center;">
-        <div style="background: white; padding: 30px; border-radius: 12px; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
-          <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
-          <h3 style="font-size: 20px; font-weight: 600; color: #1f2937; margin-bottom: 8px;">Delete Chatbot</h3>
-          <p style="color: #6b7280; margin-bottom: 24px;">Are you sure you want to delete this chatbot? This action cannot be undone.</p>
-          <div style="display: flex; gap: 12px; justify-content: center;">
-            <button id="cancelDelete" style="padding: 10px 20px; border: 1px solid #d1d5db; background: white; color: #374151; border-radius: 6px; cursor: pointer; font-weight: 500;">Cancel</button>
-            <button id="confirmDelete" style="padding: 10px 20px; background: #dc2626; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">Delete</button>
+      <div class="bg-white rounded-xl max-w-md w-full p-6">
+        <div class="flex items-center space-x-3 mb-4">
+          <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+            </svg>
           </div>
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">Delete Chatbot</h3>
+            <p class="text-gray-600">This action cannot be undone</p>
+          </div>
+        </div>
+        <div class="bg-red-50 rounded-lg p-3 mb-4">
+          <p class="text-sm text-red-800">Are you sure you want to delete this chatbot? This action cannot be undone.</p>
+        </div>
+        <div class="flex space-x-3">
+          <button onclick="this.closest('.fixed').remove()" class="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 font-medium">
+            Cancel
+          </button>
+          <button id="confirmDelete" class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 font-medium">
+            Delete
+          </button>
         </div>
       </div>
     `;
@@ -308,64 +322,85 @@ const Chatbot: React.FC = () => {
 
         {/* Chatbots List */}
         <div className="bg-white rounded-lg shadow hover:shadow-xl transition-all duration-500 hover:scale-[1.01] border border-transparent hover:border-gray-200">
-          <div className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Your Chatbots</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {chatbots.map((chatbot) => (
-                <div key={chatbot.id} className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="font-semibold text-gray-900">{chatbot.name}</h3>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      chatbot.isActive 
-                        ? 'bg-green-100 text-green-800' 
-                        : 'bg-gray-100 text-gray-800'
-                    }`}>
-                      {chatbot.isActive ? 'Active' : 'Inactive'}
-                    </span>
-                  </div>
-                  
-                  <p className="text-gray-600 text-sm mb-4">{chatbot.description}</p>
-                  
-                  {/* Metrics */}
-                  {chatbot.metrics && (
-                    <div className="grid grid-cols-2 gap-2 mb-4 text-xs">
-                      <div className="bg-white rounded p-2 text-center">
-                        <div className="font-semibold text-gray-900">{chatbot.metrics.todayMessages || 0}</div>
-                        <div className="text-gray-500">Messages</div>
+          <div className="p-6 border-b border-gray-200">
+            <h2 className="text-xl font-semibold text-gray-900">Your Chatbots</h2>
+          </div>
+          
+          <div className="divide-y divide-gray-200">
+            {chatbots.length === 0 ? (
+              <div className="p-12 text-center">
+                <div className="text-6xl mb-4">🤖</div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">No chatbots created</h3>
+                <p className="text-gray-600 mb-4">Create your first AI assistant to get started</p>
+                <button
+                  onClick={() => setShowCustomization(true)}
+                  className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                >
+                  Create First Chatbot
+                </button>
+              </div>
+            ) : (
+              chatbots.map((chatbot) => (
+                <div key={chatbot.id} className="p-6 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 transition-all duration-500 hover:shadow-lg hover:scale-[1.02] border border-transparent hover:border-blue-200 rounded-lg">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <span className="text-xl">🤖</span>
                       </div>
-                      <div className="bg-white rounded p-2 text-center">
-                        <div className="font-semibold text-gray-900">{chatbot.metrics.avgResponseTime || 0}ms</div>
-                        <div className="text-gray-500">Response</div>
+                      <div>
+                        <h3 className="text-lg font-medium text-gray-900">{chatbot.name}</h3>
+                        <p className="text-gray-600">{chatbot.description}</p>
+                        <div className="space-y-2">
+                          <div className="flex items-center space-x-4">
+                            <span className={`px-2 py-1 rounded-full text-xs transition-all duration-300 ${
+                              chatbot.isActive 
+                                ? 'bg-green-100 text-green-800' 
+                                : 'bg-gray-100 text-gray-800'
+                            }`}>
+                              {chatbot.isActive ? 'Active' : 'Inactive'}
+                            </span>
+                            {chatbot.metrics && (
+                              <>
+                                <span className="text-sm text-gray-500">
+                                  💬 {chatbot.metrics.todayMessages || 0} messages today
+                                </span>
+                                <span className="text-sm text-gray-500">
+                                  ⚡ {chatbot.metrics.avgResponseTime || 0}ms avg response
+                                </span>
+                              </>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  )}
-                  
-                  <div className="flex space-x-2">
-                    <button
-                      onClick={() => handleEditChatbot(chatbot)}
-                      className="flex-1 bg-blue-600 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 transition-all duration-300 hover:scale-105"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => {
-                        setSelectedChatbot(chatbot);
-                        setShowCustomization(true);
-                      }}
-                      className="flex-1 bg-purple-600 text-white px-3 py-2 rounded text-sm hover:bg-purple-700 transition-all duration-300 hover:scale-105"
-                    >
-                      Customize
-                    </button>
-                    <button
-                      onClick={() => handleDeleteChatbot(chatbot.id)}
-                      className="bg-red-600 text-white px-3 py-2 rounded text-sm hover:bg-red-700 transition-all duration-300 hover:scale-105"
-                    >
-                      Delete
-                    </button>
+                    
+                    <div className="flex items-center space-x-2">
+                      <button
+                        onClick={() => handleEditChatbot(chatbot)}
+                        className="text-blue-600 hover:text-blue-800 transition-all duration-300 hover:scale-105"
+                      >
+                        ✏️ Edit
+                      </button>
+                      <button
+                        onClick={() => {
+                          setSelectedChatbot(chatbot);
+                          setShowCustomization(true);
+                        }}
+                        className="text-purple-600 hover:text-purple-800 transition-all duration-300 hover:scale-105"
+                      >
+                        🎨 Customize
+                      </button>
+                      <button
+                        onClick={() => handleDeleteChatbot(chatbot.id)}
+                        className="text-red-600 hover:text-red-800 transition-all duration-300 hover:scale-105"
+                      >
+                        🗑️ Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              ))
+            )}
           </div>
         </div>
       </div>
