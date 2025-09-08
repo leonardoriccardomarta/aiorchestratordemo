@@ -286,6 +286,66 @@ const FaqManagement = () => {
             </div>
             <div className="flex items-center space-x-4">
               <button
+                onClick={() => {
+                  const modal = document.createElement('div');
+                  modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+                  modal.innerHTML = `
+                    <div class="bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl">
+                      <div class="text-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-4">❓ FAQ Management Tutorial</h2>
+                        <p class="text-gray-600">Learn how to create and manage your FAQ content</p>
+                      </div>
+                      
+                      <div class="space-y-6 mb-8">
+                        <div class="flex items-start space-x-4">
+                          <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-2xl">➕</span>
+                          </div>
+                          <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Step 1: Create FAQs</h3>
+                            <p class="text-gray-600 text-sm">Add frequently asked questions with detailed answers to help your users.</p>
+                          </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                          <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-2xl">📝</span>
+                          </div>
+                          <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Step 2: Organize Content</h3>
+                            <p class="text-gray-600 text-sm">Categorize and tag your FAQs for easy navigation and better user experience.</p>
+                          </div>
+                        </div>
+                        
+                        <div class="flex items-start space-x-4">
+                          <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                            <span class="text-2xl">🔍</span>
+                          </div>
+                          <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Step 3: Optimize & Update</h3>
+                            <p class="text-gray-600 text-sm">Monitor usage, update answers, and continuously improve your FAQ content.</p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="flex space-x-4">
+                        <button onclick="this.closest('.fixed').remove()" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
+                          Start Creating
+                        </button>
+                        <button onclick="this.closest('.fixed').remove()" class="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium">
+                          Close
+                        </button>
+                      </div>
+                    </div>
+                  `;
+                  document.body.appendChild(modal);
+                }}
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+              >
+                <span className="mr-2">🚀</span>
+                Take a Tour
+              </button>
+              <button
                 onClick={handleAddFaq}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >

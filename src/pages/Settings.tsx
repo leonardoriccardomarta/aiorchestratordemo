@@ -387,6 +387,70 @@ const Settings: React.FC = () => {
           </div>
         </div>
 
+        {/* Take a Tour Button */}
+        <div className="mb-6 sm:mb-8 text-center">
+          <button
+            onClick={() => {
+              const modal = document.createElement('div');
+              modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+              modal.innerHTML = `
+                <div class="bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl">
+                  <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">⚙️ Settings Tutorial</h2>
+                    <p class="text-gray-600">Learn how to configure your AI Orchestrator account</p>
+                  </div>
+                  
+                  <div class="space-y-6 mb-8">
+                    <div class="flex items-start space-x-4">
+                      <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span class="text-2xl">👤</span>
+                      </div>
+                      <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Step 1: Profile Setup</h3>
+                        <p class="text-gray-600 text-sm">Configure your personal information and account details.</p>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                      <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span class="text-2xl">🔒</span>
+                      </div>
+                      <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Step 2: Security Settings</h3>
+                        <p class="text-gray-600 text-sm">Set up two-factor authentication and manage your security preferences.</p>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                      <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span class="text-2xl">🔔</span>
+                      </div>
+                      <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Step 3: Notifications</h3>
+                        <p class="text-gray-600 text-sm">Customize how and when you receive updates about your AI workflows.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="flex space-x-4">
+                    <button onclick="this.closest('.fixed').remove()" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
+                      Start Configuring
+                    </button>
+                    <button onclick="this.closest('.fixed').remove()" class="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium">
+                      Close
+                    </button>
+                  </div>
+                </div>
+              `;
+              document.body.appendChild(modal);
+            }}
+            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
+          >
+            <span className="mr-2">🚀</span>
+            Take a Tour
+          </button>
+        </div>
+
         {/* Settings Navigation */}
         <div className="bg-white rounded-lg shadow mb-6 sm:mb-8 hover:shadow-xl transition-all duration-500 hover:scale-[1.01] border border-transparent hover:border-gray-200">
           <div className="border-b border-gray-200">
