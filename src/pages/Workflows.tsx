@@ -340,8 +340,21 @@ const Workflows: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">⚡ Workflow Automation</h1>
-          <p className="text-sm sm:text-base text-gray-600 mt-2">Create and manage advanced automated processes</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">⚡ AI Workflow Automation</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-2">
+            Build intelligent workflows that make AI-driven decisions - more powerful than traditional automation tools
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full font-medium">
+              🧠 AI Decisions
+            </span>
+            <span className="px-3 py-1 bg-purple-100 text-purple-800 text-xs rounded-full font-medium">
+              🔄 Smart Automation
+            </span>
+            <span className="px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full font-medium">
+              📈 Business Intelligence
+            </span>
+          </div>
         </div>
 
         {/* Stats Cards */}

@@ -250,8 +250,21 @@ const Chatbot: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">🤖 Chatbot Management</h1>
-          <p className="text-sm sm:text-base text-gray-600 mt-2">Create and manage your advanced AI assistants</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">🤖 AI Chatbot Management</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-2">
+            Create intelligent chatbots that understand context and make smart decisions - unlike basic automation tools
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full font-medium">
+              🧠 AI-Powered
+            </span>
+            <span className="px-3 py-1 bg-purple-100 text-purple-800 text-xs rounded-full font-medium">
+              💬 Conversational
+            </span>
+            <span className="px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full font-medium">
+              🚀 Business Ready
+            </span>
+          </div>
         </div>
 
         {/* Stats Cards */}
