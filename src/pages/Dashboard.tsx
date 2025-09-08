@@ -40,6 +40,7 @@ const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showWelcomeModal, setShowWelcomeModal] = useState(true);
+  const [onboardingStep, setOnboardingStep] = useState(1);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -116,93 +117,179 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
-      {/* Welcome Modal */}
+      {/* Welcome Modal - Onboarding Progressivo */}
       {showWelcomeModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl">
-            <div className="flex items-center space-x-4 mb-6">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center">
-                <span className="text-3xl">🤖</span>
+            {/* Progress Bar */}
+            <div className="mb-6">
+              <div className="flex justify-center space-x-2 mb-4">
+                {[1, 2, 3].map((step) => (
+                  <div
+                    key={step}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                      step <= onboardingStep ? 'bg-blue-600' : 'bg-gray-300'
+                    }`}
+                  />
+                ))}
               </div>
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900">Welcome to AI Orchestrator</h2>
-                <p className="text-gray-600">The future of AI-powered business automation</p>
+              <div className="text-center text-sm text-gray-500">
+                Step {onboardingStep} of 3
               </div>
             </div>
-            
-            <div className="space-y-6 mb-8">
-              <div className="bg-blue-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-blue-900 mb-3">🎯 What is AI Orchestrator?</h3>
-                <p className="text-blue-800 mb-4">
-                  Unlike traditional automation tools like n8n or Zapier, AI Orchestrator focuses on <strong>intelligent conversations</strong> and <strong>AI-driven decision making</strong>. 
-                  We don't just move data between apps - we create smart, conversational workflows that understand context and make intelligent decisions.
+
+            {/* Slide 1: What is AI Orchestrator? */}
+            {onboardingStep === 1 && (
+              <div className="text-center mb-8">
+                <div className="w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <span className="text-4xl">🚀</span>
+                </div>
+                <h1 className="text-3xl font-bold text-gray-900 mb-4">Welcome to AI Orchestrator</h1>
+                <p className="text-lg text-gray-600 mb-6">
+                  The next generation of business automation powered by AI
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                    <div>
-                      <p className="font-medium text-blue-900">Conversational AI</p>
-                      <p className="text-sm text-blue-700">Smart chatbots that understand context</p>
+                
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <span className="text-2xl">🧠</span>
                     </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                    <div>
-                      <p className="font-medium text-blue-900">Intelligent Workflows</p>
-                      <p className="text-sm text-blue-700">AI makes decisions, not just data moves</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                    <div>
-                      <p className="font-medium text-blue-900">Business Ready</p>
-                      <p className="text-sm text-blue-700">Pre-built templates for e-commerce</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                    <div>
-                      <p className="font-medium text-blue-900">No-Code + AI</p>
-                      <p className="text-sm text-blue-700">Easier than n8n, smarter than Zapier</p>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">AI-First Approach</h3>
+                      <p className="text-gray-600">
+                        Unlike traditional automation tools, we use AI to understand, analyze, and make smart decisions.
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
+            )}
 
-              <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-purple-900 mb-3">🚀 How to Get Started</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                    <p className="text-purple-800">Create your first AI chatbot with our guided setup</p>
+            {/* Slide 2: Why AI Orchestrator? */}
+            {onboardingStep === 2 && (
+              <div className="text-center mb-8">
+                <div className="w-20 h-20 bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <span className="text-4xl">⚡</span>
+                </div>
+                <h1 className="text-3xl font-bold text-gray-900 mb-4">Why AI Orchestrator?</h1>
+                <p className="text-lg text-gray-600 mb-6">
+                  The difference between traditional automation and intelligent AI
+                </p>
+                
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <span className="text-2xl">💬</span>
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">vs n8n/Zapier</h3>
+                      <p className="text-gray-600">
+                        While they move data, we make intelligent decisions. Our AI understands context and learns from interactions.
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                    <p className="text-purple-800">Build intelligent workflows that respond to customer conversations</p>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                    <p className="text-purple-800">Integrate with your business tools and watch AI handle complex decisions</p>
+                  
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <span className="text-2xl">🚀</span>
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Business Ready</h3>
+                      <p className="text-gray-600">
+                        Built for enterprise with advanced analytics, security, and scalability that traditional tools can't match.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
 
+            {/* Slide 3: How to Get Started */}
+            {onboardingStep === 3 && (
+              <div className="text-center mb-8">
+                <div className="w-20 h-20 bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                  <span className="text-4xl">🎯</span>
+                </div>
+                <h1 className="text-3xl font-bold text-gray-900 mb-4">Ready to Start?</h1>
+                <p className="text-lg text-gray-600 mb-6">
+                  Let's build your first AI-powered workflow
+                </p>
+                
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <span className="text-2xl">🤖</span>
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Step 1: Create AI Chatbot</h3>
+                      <p className="text-gray-600">
+                        Build intelligent chatbots that understand context and provide human-like responses.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <span className="text-2xl">⚡</span>
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Step 2: Build Workflows</h3>
+                      <p className="text-gray-600">
+                        Create intelligent workflows that make AI-driven decisions, not just data moves.
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                      <span className="text-2xl">📊</span>
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">Step 3: Monitor & Optimize</h3>
+                      <p className="text-gray-600">
+                        Track performance with AI-powered analytics and continuously improve your automation.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Navigation Buttons */}
             <div className="flex space-x-4">
-              <button
-                onClick={() => {
-                  setShowWelcomeModal(false);
-                  navigate('/chatbot');
-                }}
-                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
-              >
-                Start Building AI Workflows
-              </button>
+              {onboardingStep > 1 && (
+                <button
+                  onClick={() => setOnboardingStep(onboardingStep - 1)}
+                  className="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium border border-gray-300 rounded-xl hover:bg-gray-50 transition-all duration-300"
+                >
+                  ← Back
+                </button>
+              )}
+              
+              {onboardingStep < 3 ? (
+                <button
+                  onClick={() => setOnboardingStep(onboardingStep + 1)}
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
+                >
+                  Next →
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setShowWelcomeModal(false);
+                    navigate('/chatbot');
+                  }}
+                  className="flex-1 bg-gradient-to-r from-green-600 to-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-green-700 hover:to-blue-700 transition-all duration-300"
+                >
+                  Start Building Now! 🚀
+                </button>
+              )}
+              
               <button
                 onClick={() => setShowWelcomeModal(false)}
                 className="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium"
               >
-                Skip Tutorial
+                Skip
               </button>
             </div>
           </div>
