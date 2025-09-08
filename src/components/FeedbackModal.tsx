@@ -12,6 +12,8 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, onSucces
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedQuestions, setSelectedQuestions] = useState<string[]>([]);
+  const [additionalFeedback, setAdditionalFeedback] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,8 +28,14 @@ AI Orchestrator Feedback Submission
 Rating: ${rating}/5 stars
 ${'⭐'.repeat(rating)} ${rating === 1 && 'Poor' || rating === 2 && 'Fair' || rating === 3 && 'Good' || rating === 4 && 'Very Good' || rating === 5 && 'Excellent'}
 
+Selected Questions:
+${selectedQuestions.length > 0 ? selectedQuestions.map(q => `• ${q}`).join('\n') : 'No specific questions selected'}
+
 Feedback:
 ${feedback || 'No feedback provided'}
+
+Additional Feedback:
+${additionalFeedback || 'No additional feedback'}
 
 Contact Information:
 Email: ${email}
@@ -40,7 +48,20 @@ This feedback was submitted through the AI Orchestrator Demo.
       
       // Apri email client con dati precompilati
       const mailtoLink = `mailto:aiorchestratoor@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.open(mailtoLink);
+      
+      // Prova prima con window.location.href, poi con window.open
+      try {
+        window.location.href = mailtoLink;
+      } catch (error) {
+        // Fallback se window.location.href non funziona
+        const newWindow = window.open(mailtoLink, '_blank');
+        if (!newWindow) {
+          // Se anche window.open fallisce, copia il link negli appunti
+          navigator.clipboard.writeText(mailtoLink).then(() => {
+            alert('Email client blocked. Link copied to clipboard!');
+          });
+        }
+      }
       
       onSuccess();
       onClose();
@@ -50,6 +71,8 @@ This feedback was submitted through the AI Orchestrator Demo.
       setFeedback('');
       setEmail('');
       setCompany('');
+      setSelectedQuestions([]);
+      setAdditionalFeedback('');
     } catch (error) {
       console.error('Error submitting feedback:', error);
       // Still show success for demo purposes
@@ -61,6 +84,8 @@ This feedback was submitted through the AI Orchestrator Demo.
       setFeedback('');
       setEmail('');
       setCompany('');
+      setSelectedQuestions([]);
+      setAdditionalFeedback('');
     } finally {
       setIsSubmitting(false);
     }
@@ -107,6 +132,41 @@ This feedback was submitted through the AI Orchestrator Demo.
             )}
           </div>
 
+          {/* Questions */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-3">
+              What would you like to know more about? (Select all that apply)
+            </label>
+            <div className="space-y-2">
+              {[
+                'Pricing and plans',
+                'Integration capabilities',
+                'AI model customization',
+                'Team collaboration features',
+                'Security and compliance',
+                'API documentation',
+                'Custom workflow creation',
+                'Mobile app availability'
+              ].map((question) => (
+                <label key={question} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={selectedQuestions.includes(question)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedQuestions([...selectedQuestions, question]);
+                      } else {
+                        setSelectedQuestions(selectedQuestions.filter(q => q !== question));
+                      }
+                    }}
+                    className="mr-3 text-blue-600 focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-700">{question}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
           {/* Feedback */}
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -118,6 +178,20 @@ This feedback was submitted through the AI Orchestrator Demo.
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Tell us what impressed you and what we can improve..."
               rows={4}
+            />
+          </div>
+
+          {/* Additional Feedback */}
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Any additional thoughts or suggestions?
+            </label>
+            <textarea
+              value={additionalFeedback}
+              onChange={(e) => setAdditionalFeedback(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              placeholder="Share any other ideas, concerns, or suggestions..."
+              rows={3}
             />
           </div>
 
@@ -164,8 +238,24 @@ This feedback was submitted through the AI Orchestrator Demo.
               disabled={!email || isSubmitting}
               className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
+              {isSubmitting ? 'Submitting...' : 'Submit Feedback & Join Early Access'}
             </button>
+          </div>
+
+          {/* Early Access Info */}
+          <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
+            <div className="text-center">
+              <h3 className="text-lg font-semibold text-blue-800 mb-2">🚀 Get Early Access</h3>
+              <p className="text-sm text-blue-700 mb-3">
+                Be the first to experience AI Orchestrator when we launch!
+              </p>
+              <div className="text-xs text-blue-600 space-y-1">
+                <p>✅ Free for 6 months</p>
+                <p>✅ Priority support</p>
+                <p>✅ Direct input on features</p>
+                <p>✅ Exclusive launch event invite</p>
+              </div>
+            </div>
           </div>
         </form>
       </div>

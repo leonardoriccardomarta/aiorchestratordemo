@@ -362,10 +362,10 @@ const FaqManagement = () => {
               
               <button
                 onClick={() => setShowFeedback(true)}
-                className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 font-medium transition-all duration-200 flex items-center space-x-2 ml-2"
+                className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:from-green-700 hover:to-emerald-700 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1 ml-2"
               >
-                <span>💬</span>
-                <span>Give Feedback</span>
+                <span className="mr-2">💬</span>
+                <span className="text-sm sm:text-base">Give Feedback</span>
               </button>
               <button
                 onClick={handleAddFaq}
@@ -621,19 +621,6 @@ const FaqManagement = () => {
           </div>
         )}
 
-      {/* Early Access CTA */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-white mb-6 sm:mb-8">
-        <div className="text-center">
-          <h3 className="text-xl font-bold mb-2">🚀 Get Early Access - Free for 6 months</h3>
-          <p className="text-blue-100 mb-4">Join 500+ companies waiting for AI Orchestrator launch</p>
-          <button
-            onClick={() => setShowFeedback(true)}
-            className="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-200"
-          >
-            Request Early Access
-          </button>
-        </div>
-      </div>
 
       {/* Feedback Modal */}
       {showFeedback && (
