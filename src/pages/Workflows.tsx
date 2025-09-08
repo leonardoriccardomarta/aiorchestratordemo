@@ -420,6 +420,66 @@ const Workflows: React.FC = () => {
               <span className="mr-2">➕</span>
               <span className="text-sm sm:text-base">Create New Workflow</span>
             </button>
+            <button
+              onClick={() => {
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+                modal.innerHTML = `
+                  <div class="bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl">
+                    <div class="text-center mb-6">
+                      <h2 class="text-2xl font-bold text-gray-900 mb-4">⚡ AI Workflow Tutorial</h2>
+                      <p class="text-gray-600">Learn how to build intelligent workflows that make AI-driven decisions</p>
+                    </div>
+                    
+                    <div class="space-y-6 mb-8">
+                      <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                          <span class="text-2xl">🧠</span>
+                        </div>
+                        <div>
+                          <h3 class="text-lg font-semibold text-gray-900 mb-2">Step 1: Define Triggers</h3>
+                          <p class="text-gray-600 text-sm">Set up smart triggers that understand context, not just simple data moves.</p>
+                        </div>
+                      </div>
+                      
+                      <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                          <span class="text-2xl">⚡</span>
+                        </div>
+                        <div>
+                          <h3 class="text-lg font-semibold text-gray-900 mb-2">Step 2: AI Decision Making</h3>
+                          <p class="text-gray-600 text-sm">Let AI analyze data and make intelligent decisions, not just move information.</p>
+                        </div>
+                      </div>
+                      
+                      <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                          <span class="text-2xl">🚀</span>
+                        </div>
+                        <div>
+                          <h3 class="text-lg font-semibold text-gray-900 mb-2">Step 3: Smart Actions</h3>
+                          <p class="text-gray-600 text-sm">Execute intelligent actions based on AI analysis and business logic.</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                      <button onclick="this.closest('.fixed').remove()" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
+                        Start Building
+                      </button>
+                      <button onclick="this.closest('.fixed').remove()" class="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium">
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                `;
+                document.body.appendChild(modal);
+              }}
+              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
+            >
+              <span className="mr-2">🚀</span>
+              <span className="text-sm sm:text-base">Take a Tour</span>
+            </button>
             <button 
               onClick={() => {
                 const modal = document.createElement('div');

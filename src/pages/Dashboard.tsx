@@ -190,7 +190,10 @@ const Dashboard: React.FC = () => {
 
             <div className="flex space-x-4">
               <button
-                onClick={() => setShowWelcomeModal(false)}
+                onClick={() => {
+                  setShowWelcomeModal(false);
+                  navigate('/chatbot');
+                }}
                 className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
               >
                 Start Building AI Workflows
@@ -722,7 +725,7 @@ const Dashboard: React.FC = () => {
                 </div>
                 
                 <div class="flex space-x-4">
-                  <button onclick="this.closest('.fixed').remove()" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
+                  <button onclick="this.closest('.fixed').remove(); window.location.href='/chatbot';" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
                     Start Building Now
                   </button>
                   <button onclick="this.closest('.fixed').remove()" class="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium">
