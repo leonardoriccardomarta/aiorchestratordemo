@@ -163,22 +163,94 @@ const Payments: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-6 sm:mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">💳 Revenue Dashboard</h1>
-              <p className="text-gray-600 mt-2">Owner view - Monthly revenue, subscriptions and business metrics</p>
-            </div>
-            <div className="text-right">
-              <div className="px-4 py-2 bg-gradient-to-r from-orange-500 to-red-500 text-white rounded-lg text-sm font-bold">
-                👑 FOUNDER VIEW
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">💳 AI Revenue Dashboard</h1>
+              <p className="text-sm sm:text-base text-gray-600 mt-2">Track AI-powered revenue with intelligent insights - smarter than traditional payment systems</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full font-medium">
+                  💰 Smart Revenue
+                </span>
+                <span className="px-3 py-1 bg-purple-100 text-purple-800 text-xs rounded-full font-medium">
+                  📊 AI Analytics
+                </span>
+                <span className="px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full font-medium">
+                  🔄 Auto Billing
+                </span>
+                <span className="px-3 py-1 bg-orange-100 text-orange-800 text-xs rounded-full font-medium">
+                  👑 FOUNDER VIEW
+                </span>
               </div>
-              <p className="text-xs text-gray-500 mt-1">Not visible to customers</p>
             </div>
           </div>
+        </div>
+
+        {/* Take a Tour Button */}
+        <div className="mb-6 sm:mb-8 text-center">
+          <button
+            onClick={() => {
+              const modal = document.createElement('div');
+              modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50';
+              modal.innerHTML = `
+                <div class="bg-white rounded-2xl max-w-2xl w-full p-8 shadow-2xl">
+                  <div class="text-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-4">💳 Revenue Dashboard Tutorial</h2>
+                    <p class="text-gray-600">Learn how to track and optimize your AI-powered revenue</p>
+                  </div>
+                  
+                  <div class="space-y-6 mb-8">
+                    <div class="flex items-start space-x-4">
+                      <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span class="text-2xl">💰</span>
+                      </div>
+                      <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Step 1: Track Revenue</h3>
+                        <p class="text-gray-600 text-sm">Monitor AI-powered revenue streams and payment performance in real-time.</p>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                      <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span class="text-2xl">📊</span>
+                      </div>
+                      <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Step 2: Analyze Performance</h3>
+                        <p class="text-gray-600 text-sm">Use AI insights to understand payment patterns and optimize conversion rates.</p>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                      <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span class="text-2xl">⚡</span>
+                      </div>
+                      <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Step 3: Optimize & Scale</h3>
+                        <p class="text-gray-600 text-sm">Make data-driven decisions to maximize revenue and scale your AI business.</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="flex space-x-4">
+                    <button onclick="this.closest('.fixed').remove()" class="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300">
+                      Start Tracking
+                    </button>
+                    <button onclick="this.closest('.fixed').remove()" class="px-6 py-3 text-gray-600 hover:text-gray-800 font-medium">
+                      Close
+                    </button>
+                  </div>
+                </div>
+              `;
+              document.body.appendChild(modal);
+            }}
+            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
+          >
+            <span className="mr-2">🚀</span>
+            Take a Tour
+          </button>
         </div>
 
         {/* Founder Notice */}

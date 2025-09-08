@@ -380,10 +380,21 @@ const Settings: React.FC = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">⚙️ Advanced Settings</h1>
-          <p className="text-sm sm:text-base text-gray-600 mt-2">Manage your account, security and preferences</p>
-          <div className="mt-2 px-3 py-1 bg-gradient-to-r from-orange-100 to-red-100 text-orange-800 rounded-full text-xs sm:text-sm inline-block">
-            🚀 Y Combinator Demo Account
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">⚙️ AI Orchestrator Settings</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-2">Configure your AI workflows, security, and team preferences - more intelligent than traditional settings</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full font-medium">
+              🔧 Smart Configuration
+            </span>
+            <span className="px-3 py-1 bg-purple-100 text-purple-800 text-xs rounded-full font-medium">
+              🔒 Enterprise Security
+            </span>
+            <span className="px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full font-medium">
+              👥 Team Management
+            </span>
+            <span className="px-3 py-1 bg-orange-100 text-orange-800 text-xs rounded-full font-medium">
+              🚀 Y Combinator Demo
+            </span>
           </div>
         </div>
 

@@ -279,10 +279,21 @@ const FaqManagement = () => {
         <div className="bg-white rounded-xl shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 font-sans">FAQ Management</h1>
-              <p className="mt-2 text-gray-600 text-base font-normal max-w-3xl">
-                Create, edit, and organize your FAQ content to help users find answers quickly and efficiently
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 font-sans">❓ AI-Powered FAQ Management</h1>
+              <p className="mt-2 text-sm sm:text-base text-gray-600 font-normal max-w-3xl">
+                Create intelligent FAQs that understand context and provide smart answers - more helpful than traditional knowledge bases
               </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full font-medium">
+                  🤖 AI-Powered
+                </span>
+                <span className="px-3 py-1 bg-purple-100 text-purple-800 text-xs rounded-full font-medium">
+                  📝 Smart Content
+                </span>
+                <span className="px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full font-medium">
+                  🔍 Context Aware
+                </span>
+              </div>
             </div>
             <div className="flex items-center space-x-4">
               <button

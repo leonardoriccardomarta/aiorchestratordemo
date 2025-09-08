@@ -102,12 +102,23 @@ const Analytics: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-3 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">📊 Advanced Analytics</h1>
-          <p className="text-gray-600 mt-2">Deep insights to optimize performance and drive growth</p>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">📊 AI Performance Analytics</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-2">Track and optimize your AI workflows with intelligent insights - smarter than traditional analytics</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs rounded-full font-medium">
+              📈 Real-time Tracking
+            </span>
+            <span className="px-3 py-1 bg-purple-100 text-purple-800 text-xs rounded-full font-medium">
+              🧠 AI Insights
+            </span>
+            <span className="px-3 py-1 bg-green-100 text-green-800 text-xs rounded-full font-medium">
+              ⚡ Performance Optimization
+            </span>
+          </div>
         </div>
 
         {/* Time Range Selector */}
