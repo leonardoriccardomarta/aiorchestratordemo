@@ -565,7 +565,7 @@ const Chatbot: React.FC = () => {
             <div className="text-green-600 text-2xl mr-3">✅</div>
             <div>
               <h4 className="font-semibold text-green-800">Thanks for your feedback!</h4>
-              <p className="text-green-700 text-sm">Feedback sent successfully! Check your email for confirmation.</p>
+              <p className="text-green-700 text-sm">Feedback sent successfully! You'll receive a confirmation email shortly.</p>
             </div>
           </div>
         </div>
