@@ -54,43 +54,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, onSucces
       setAdditionalFeedback('');
     } catch (error) {
       console.error('Error sending email:', error);
-      
-      // Fallback to mailto if EmailJS fails
-      const subject = `AI Orchestrator Feedback - ${email} (${company || 'No Company'})`;
-      const body = `
-AI Orchestrator Feedback Submission
-
-Rating: ${rating}/5 stars
-${'⭐'.repeat(rating)} ${rating === 1 && 'Poor' || rating === 2 && 'Fair' || rating === 3 && 'Good' || rating === 4 && 'Very Good' || rating === 5 && 'Excellent'}
-
-Selected Questions:
-${selectedQuestions.length > 0 ? selectedQuestions.map(q => `• ${q}`).join('\n') : 'No specific questions selected'}
-
-Feedback:
-${feedback || 'No feedback provided'}
-
-Contact Information:
-Email: ${email}
-Company: ${company || 'N/A'}
-Date: ${new Date().toLocaleString()}
-
----
-This feedback was submitted through the AI Orchestrator Demo.
-      `;
-
-      const mailtoLink = `mailto:aiorchestratoor@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = mailtoLink;
-      
-      onSuccess();
-      onClose();
-
-      // Reset form
-      setRating(0);
-      setFeedback('');
-      setEmail('');
-      setCompany('');
-      setSelectedQuestions([]);
-      setAdditionalFeedback('');
+      alert('Error sending feedback. Please try again or contact support.');
     } finally {
       setIsSubmitting(false);
     }
