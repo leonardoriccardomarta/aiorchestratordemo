@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 interface FeedbackModalProps {
   isOpen: boolean;
@@ -20,40 +21,41 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, onSucces
     setIsSubmitting(true);
 
     try {
-      // Send feedback to backend
-      const response = await fetch('http://localhost:3001/api/feedback', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          rating,
-          feedback,
-          email,
-          company,
-          selectedQuestions,
-          additionalFeedback
-        })
-      });
+      // Use EmailJS to send real email
+      const templateParams = {
+        to_email: 'aiorchestratoor@gmail.com',
+        name: email.split('@')[0] || 'User', // Extract name from email
+        email: email,
+        company: company || 'N/A',
+        rating: `${rating}/5 stars - ${rating === 1 && 'Poor' || rating === 2 && 'Fair' || rating === 3 && 'Good' || rating === 4 && 'Very Good' || rating === 5 && 'Excellent'}`,
+        selected_questions: selectedQuestions.length > 0 ? selectedQuestions.join(', ') : 'No specific questions selected',
+        feedback: feedback || 'No feedback provided',
+        date: new Date().toLocaleString(),
+        subject: `AI Orchestrator Feedback - ${email} (${company || 'No Company'})`
+      };
 
-      if (response.ok) {
-        onSuccess();
-        onClose();
-        
-        // Reset form
-        setRating(0);
-        setFeedback('');
-        setEmail('');
-        setCompany('');
-        setSelectedQuestions([]);
-        setAdditionalFeedback('');
-      } else {
-        throw new Error('Failed to send feedback');
-      }
+      // Use EmailJS to send real email
+      await emailjs.send(
+        'service_g5b6agg', // Your service ID
+        'template_ud03qpg', // Your template ID
+        templateParams,
+        'LtNUIsmmmJZfVgnHg' // Your Public Key
+      );
+
+      onSuccess();
+      onClose();
+
+      // Reset form
+      setRating(0);
+      setFeedback('');
+      setEmail('');
+      setCompany('');
+      setSelectedQuestions([]);
+      setAdditionalFeedback('');
     } catch (error) {
-      console.error('Error submitting feedback:', error);
+      console.error('Error sending email:', error);
       
-      // Fallback: try mailto if backend fails
+      // Fallback to mailto if EmailJS fails
       const subject = `AI Orchestrator Feedback - ${email} (${company || 'No Company'})`;
       const body = `
 AI Orchestrator Feedback Submission
@@ -67,9 +69,6 @@ ${selectedQuestions.length > 0 ? selectedQuestions.map(q => `• ${q}`).join('\n
 Feedback:
 ${feedback || 'No feedback provided'}
 
-Additional Feedback:
-${additionalFeedback || 'No additional feedback'}
-
 Contact Information:
 Email: ${email}
 Company: ${company || 'N/A'}
@@ -78,23 +77,13 @@ Date: ${new Date().toLocaleString()}
 ---
 This feedback was submitted through the AI Orchestrator Demo.
       `;
-      
+
       const mailtoLink = `mailto:aiorchestratoor@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      
-      try {
-        window.location.href = mailtoLink;
-      } catch (mailtoError) {
-        const newWindow = window.open(mailtoLink, '_blank');
-        if (!newWindow) {
-          navigator.clipboard.writeText(mailtoLink).then(() => {
-            alert('Backend unavailable. Email link copied to clipboard!');
-          });
-        }
-      }
+      window.location.href = mailtoLink;
       
       onSuccess();
       onClose();
-      
+
       // Reset form
       setRating(0);
       setFeedback('');
@@ -207,6 +196,8 @@ This feedback was submitted through the AI Orchestrator Demo.
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="your@email.com"
               required
+              pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+              title="Please enter a valid email address"
             />
           </div>
 
