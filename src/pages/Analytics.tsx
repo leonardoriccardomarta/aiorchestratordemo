@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { apiService } from '../services/api';
-import FeedbackModal from '../components/FeedbackModal';
 
 const Analytics: React.FC = () => {
   const [analyticsData, setAnalyticsData] = useState<any>(null);
@@ -9,8 +8,6 @@ const Analytics: React.FC = () => {
   const [selectedMetric, setSelectedMetric] = useState('revenue');
   const [animatedValues, setAnimatedValues] = useState<{[key: string]: number}>({});
   const [showRealTimeUpdates, setShowRealTimeUpdates] = useState(false);
-  const [showFeedback, setShowFeedback] = useState(false);
-  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
 
   useEffect(() => {
     fetchAnalyticsData();
@@ -162,7 +159,7 @@ const Analytics: React.FC = () => {
 
         {/* Key Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
             <div className="flex items-center">
               <div className="p-2 bg-green-100 rounded-lg">
                 <span className="text-2xl">💰</span>
@@ -177,7 +174,7 @@ const Analytics: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
             <div className="flex items-center">
               <div className="p-2 bg-blue-100 rounded-lg">
                 <span className="text-2xl">🎯</span>
@@ -192,7 +189,7 @@ const Analytics: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
             <div className="flex items-center">
               <div className="p-2 bg-purple-100 rounded-lg">
                 <span className="text-2xl">👥</span>
@@ -207,7 +204,7 @@ const Analytics: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow p-6 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="bg-white rounded-lg shadow p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 border border-transparent hover:border-blue-200">
             <div className="flex items-center">
               <div className="p-2 bg-yellow-100 rounded-lg">
                 <span className="text-2xl">💬</span>
@@ -471,13 +468,6 @@ const Analytics: React.FC = () => {
             🚀 Take a Tour
           </button>
           
-          <button
-            onClick={() => setShowFeedback(true)}
-            className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:from-green-700 hover:to-emerald-700 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
-          >
-            <span className="mr-2">💬</span>
-            <span className="text-sm sm:text-base">Give Feedback</span>
-          </button>
           <button 
             onClick={() => {
               const modal = document.createElement('div');
@@ -582,27 +572,6 @@ const Analytics: React.FC = () => {
       </div>
 
 
-      {/* Feedback Modal */}
-      {showFeedback && (
-        <FeedbackModal
-          isOpen={showFeedback}
-          onClose={() => setShowFeedback(false)}
-          onSuccess={() => setFeedbackSubmitted(true)}
-        />
-      )}
-
-      {/* Success Message */}
-      {feedbackSubmitted && (
-        <div className="fixed top-4 right-4 bg-green-50 border border-green-200 rounded-lg p-4 z-50 max-w-sm">
-          <div className="flex items-center">
-            <div className="text-green-600 text-2xl mr-3">✅</div>
-            <div>
-              <h4 className="font-semibold text-green-800">Thanks for your feedback!</h4>
-              <p className="text-green-700 text-sm">Email client opened! Send the email to complete your feedback submission.</p>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

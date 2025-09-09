@@ -312,7 +312,9 @@ const FAQ: React.FC = () => {
       { id: 2, question: "What are the pricing plans available?", category: "Billing" },
       { id: 3, question: "How can I customize the chatbot appearance?", category: "Customization" },
       { id: 4, question: "Is there a free trial available?", category: "Billing" },
-      { id: 5, question: "How do I export my chat data?", category: "Data" }
+      { id: 5, question: "What AI features are available in workflows?", category: "Features" },
+      { id: 6, question: "How do I troubleshoot technical issues?", category: "Technical" },
+      { id: 7, question: "What security measures are in place?", category: "Security" }
     ];
     setAiSuggestions(suggestions);
   };
@@ -378,7 +380,7 @@ const FAQ: React.FC = () => {
         </div>
 
         {/* Take a Tour Button */}
-        <div className="mb-6 sm:mb-8 text-center">
+        <div className="mb-6 sm:mb-8 flex justify-center gap-4">
           <button
             onClick={() => {
               const modal = document.createElement('div');
@@ -442,7 +444,7 @@ const FAQ: React.FC = () => {
           
           <button
             onClick={() => setShowFeedback(true)}
-            className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:from-green-700 hover:to-emerald-700 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1 ml-4"
+            className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:from-green-700 hover:to-emerald-700 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
           >
             <span className="mr-2">💬</span>
             <span className="text-sm sm:text-base">Give Feedback</span>
@@ -932,7 +934,7 @@ const FAQ: React.FC = () => {
             <div className="text-green-600 text-2xl mr-3">✅</div>
             <div>
               <h4 className="font-semibold text-green-800">Thanks for your feedback!</h4>
-              <p className="text-green-700 text-sm">Email client opened! Send the email to complete your feedback submission.</p>
+              <p className="text-green-700 text-sm">Feedback sent successfully! Check your email for confirmation.</p>
             </div>
           </div>
         </div>

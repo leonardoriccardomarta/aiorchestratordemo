@@ -331,24 +331,24 @@ const Dashboard: React.FC = () => {
         </div>
         
         {/* Time Range Selector */}
-      <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6 sm:mb-8 hover:shadow-xl transition-all duration-500 hover:scale-[1.01] border border-transparent hover:border-gray-200">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-          <h2 className="text-base sm:text-lg font-semibold text-gray-900">Time Range</h2>
-          <div className="flex items-center space-x-2 sm:space-x-4">
-            <div className="flex flex-wrap gap-2">
-            {(['24h', '7d', '30d', '90d'] as const).map((range) => (
+        <div className="bg-white rounded-lg shadow p-6 mb-8">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-gray-900">Time Range</h2>
+          <div className="flex items-center space-x-4">
+            <div className="flex space-x-2">
+              {['24h', '7d', '30d', '90d'].map((range) => (
               <button
                 key={range}
                 onClick={() => setTimeRange(range)}
-                  className={`px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1 ${
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-105 ${
                     timeRange === range
                       ? 'bg-blue-600 text-white shadow-lg'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  {range === '24h' ? '24H' : 
-                   range === '7d' ? '7D' :
-                   range === '30d' ? '30D' : '90D'}
+                  {range === '24h' ? '24 Hours' : 
+                   range === '7d' ? '7 Days' :
+                   range === '30d' ? '30 Days' : '90 Days'}
               </button>
             ))}
           </div>
@@ -920,7 +920,7 @@ const Dashboard: React.FC = () => {
             <div className="text-green-600 text-2xl mr-3">✅</div>
             <div>
               <h4 className="font-semibold text-green-800">Thanks for your feedback!</h4>
-              <p className="text-green-700 text-sm">Email client opened! Send the email to complete your feedback submission.</p>
+              <p className="text-green-700 text-sm">Feedback sent successfully! Check your email for confirmation.</p>
             </div>
           </div>
         </div>

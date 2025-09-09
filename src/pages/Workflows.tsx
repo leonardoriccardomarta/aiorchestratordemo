@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { apiService } from '../services/api';
-import FeedbackModal from '../components/FeedbackModal';
 
 const Workflows: React.FC = () => {
   const [workflows, setWorkflows] = useState<any[]>([]);
@@ -19,8 +18,6 @@ const Workflows: React.FC = () => {
     trigger: 'Webhook',
     status: 'active'
   });
-  const [showFeedback, setShowFeedback] = useState(false);
-  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
 
   useEffect(() => {
     fetchWorkflows();
@@ -484,13 +481,6 @@ const Workflows: React.FC = () => {
               <span className="text-sm sm:text-base">Take a Tour</span>
             </button>
             
-            <button
-              onClick={() => setShowFeedback(true)}
-              className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:from-green-700 hover:to-emerald-700 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
-            >
-              <span className="mr-2">💬</span>
-              <span className="text-sm sm:text-base">Give Feedback</span>
-            </button>
             <button 
               onClick={() => {
                 const modal = document.createElement('div');
@@ -956,27 +946,6 @@ const Workflows: React.FC = () => {
       )}
 
 
-      {/* Feedback Modal */}
-      {showFeedback && (
-        <FeedbackModal
-          isOpen={showFeedback}
-          onClose={() => setShowFeedback(false)}
-          onSuccess={() => setFeedbackSubmitted(true)}
-        />
-      )}
-
-      {/* Success Message */}
-      {feedbackSubmitted && (
-        <div className="fixed top-4 right-4 bg-green-50 border border-green-200 rounded-lg p-4 z-50 max-w-sm">
-          <div className="flex items-center">
-            <div className="text-green-600 text-2xl mr-3">✅</div>
-            <div>
-              <h4 className="font-semibold text-green-800">Thanks for your feedback!</h4>
-              <p className="text-green-700 text-sm">Email client opened! Send the email to complete your feedback submission.</p>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

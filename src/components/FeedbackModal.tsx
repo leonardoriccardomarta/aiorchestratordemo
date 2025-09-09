@@ -20,7 +20,40 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, onSucces
     setIsSubmitting(true);
 
     try {
-      // Crea email link con tutti i dati
+      // Send feedback to backend
+      const response = await fetch('http://localhost:3001/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          rating,
+          feedback,
+          email,
+          company,
+          selectedQuestions,
+          additionalFeedback
+        })
+      });
+
+      if (response.ok) {
+        onSuccess();
+        onClose();
+        
+        // Reset form
+        setRating(0);
+        setFeedback('');
+        setEmail('');
+        setCompany('');
+        setSelectedQuestions([]);
+        setAdditionalFeedback('');
+      } else {
+        throw new Error('Failed to send feedback');
+      }
+    } catch (error) {
+      console.error('Error submitting feedback:', error);
+      
+      // Fallback: try mailto if backend fails
       const subject = `AI Orchestrator Feedback - ${email} (${company || 'No Company'})`;
       const body = `
 AI Orchestrator Feedback Submission
@@ -46,36 +79,19 @@ Date: ${new Date().toLocaleString()}
 This feedback was submitted through the AI Orchestrator Demo.
       `;
       
-      // Apri email client con dati precompilati
       const mailtoLink = `mailto:aiorchestratoor@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       
-      // Prova prima con window.location.href, poi con window.open
       try {
         window.location.href = mailtoLink;
-      } catch (error) {
-        // Fallback se window.location.href non funziona
+      } catch (mailtoError) {
         const newWindow = window.open(mailtoLink, '_blank');
         if (!newWindow) {
-          // Se anche window.open fallisce, copia il link negli appunti
           navigator.clipboard.writeText(mailtoLink).then(() => {
-            alert('Email client blocked. Link copied to clipboard!');
+            alert('Backend unavailable. Email link copied to clipboard!');
           });
         }
       }
       
-      onSuccess();
-      onClose();
-      
-      // Reset form
-      setRating(0);
-      setFeedback('');
-      setEmail('');
-      setCompany('');
-      setSelectedQuestions([]);
-      setAdditionalFeedback('');
-    } catch (error) {
-      console.error('Error submitting feedback:', error);
-      // Still show success for demo purposes
       onSuccess();
       onClose();
       
@@ -94,26 +110,26 @@ This feedback was submitted through the AI Orchestrator Demo.
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl">
-        <div className="text-center mb-6">
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">💬 Help us improve AI Orchestrator</h3>
-          <p className="text-gray-600">Your feedback helps us build the perfect AI automation platform</p>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50">
+      <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] sm:max-h-[70vh] overflow-y-auto p-4 sm:p-6 shadow-2xl">
+        <div className="text-center mb-4">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1">💬 Help us improve AI Orchestrator</h3>
+          <p className="text-xs sm:text-sm text-gray-600">Your feedback helps us build the perfect AI automation platform</p>
         </div>
 
         <form onSubmit={handleSubmit}>
           {/* Rating */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-3">
+          <div className="mb-4">
+            <label className="block text-sm sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">
               How would you rate this demo?
             </label>
-            <div className="flex justify-center space-x-2">
+            <div className="flex justify-center space-x-1 sm:space-x-2">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button
                   key={star}
                   type="button"
                   onClick={() => setRating(star)}
-                  className={`w-10 h-10 text-2xl transition-all duration-200 ${
+                  className={`w-8 h-8 sm:w-10 sm:h-10 text-xl sm:text-2xl transition-all duration-200 ${
                     star <= rating ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-300'
                   }`}
                 >
@@ -133,42 +149,40 @@ This feedback was submitted through the AI Orchestrator Demo.
           </div>
 
           {/* Questions */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-3">
-              What would you like to know more about? (Select all that apply)
-            </label>
-            <div className="space-y-2">
-              {[
-                'Pricing and plans',
-                'Integration capabilities',
-                'AI model customization',
-                'Team collaboration features',
-                'Security and compliance',
-                'API documentation',
-                'Custom workflow creation',
-                'Mobile app availability'
-              ].map((question) => (
-                <label key={question} className="flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={selectedQuestions.includes(question)}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedQuestions([...selectedQuestions, question]);
-                      } else {
-                        setSelectedQuestions(selectedQuestions.filter(q => q !== question));
-                      }
-                    }}
-                    className="mr-3 text-blue-600 focus:ring-blue-500"
-                  />
-                  <span className="text-sm text-gray-700">{question}</span>
-                </label>
-              ))}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                What interests you most? (Select up to 3)
+              </label>
+              <div className="grid grid-cols-1 gap-1 sm:gap-2">
+                {[
+                  'Pricing and plans',
+                  'Integration capabilities',
+                  'AI model customization',
+                  'Team collaboration features',
+                  'Security and compliance',
+                  'Custom workflow creation'
+                ].map((question) => (
+                  <label key={question} className="flex items-center py-1">
+                    <input
+                      type="checkbox"
+                      checked={selectedQuestions.includes(question)}
+                      onChange={(e) => {
+                        if (e.target.checked && selectedQuestions.length < 3) {
+                          setSelectedQuestions([...selectedQuestions, question]);
+                        } else if (!e.target.checked) {
+                          setSelectedQuestions(selectedQuestions.filter(q => q !== question));
+                        }
+                      }}
+                      className="mr-2 sm:mr-3 text-blue-600 focus:ring-blue-500"
+                    />
+                    <span className="text-xs sm:text-sm text-gray-700">{question}</span>
+                  </label>
+                ))}
+              </div>
             </div>
-          </div>
 
           {/* Feedback */}
-          <div className="mb-6">
+          <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               What did you like most? What could be improved?
             </label>
@@ -177,26 +191,12 @@ This feedback was submitted through the AI Orchestrator Demo.
               onChange={(e) => setFeedback(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Tell us what impressed you and what we can improve..."
-              rows={4}
-            />
-          </div>
-
-          {/* Additional Feedback */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Any additional thoughts or suggestions?
-            </label>
-            <textarea
-              value={additionalFeedback}
-              onChange={(e) => setAdditionalFeedback(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              placeholder="Share any other ideas, concerns, or suggestions..."
               rows={3}
             />
           </div>
 
           {/* Email */}
-          <div className="mb-6">
+          <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Email for early access <span className="text-red-500">*</span>
             </label>
@@ -211,7 +211,7 @@ This feedback was submitted through the AI Orchestrator Demo.
           </div>
 
           {/* Company */}
-          <div className="mb-6">
+          <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Company (optional)
             </label>
@@ -225,7 +225,7 @@ This feedback was submitted through the AI Orchestrator Demo.
           </div>
 
           {/* Buttons */}
-          <div className="flex space-x-3">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
             <button
               type="button"
               onClick={onClose}
