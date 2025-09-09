@@ -336,10 +336,10 @@ const Dashboard: React.FC = () => {
           <h2 className="text-lg font-semibold text-gray-900">Time Range</h2>
           <div className="flex items-center space-x-4">
             <div className="flex space-x-2">
-              {['24h', '7d', '30d', '90d'].map((range) => (
-              <button
-                key={range}
-                onClick={() => setTimeRange(range)}
+              {(['24h', '7d', '30d', '90d'] as const).map((range) => (
+                <button
+                  key={range}
+                  onClick={() => setTimeRange(range)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 hover:scale-105 ${
                     timeRange === range
                       ? 'bg-blue-600 text-white shadow-lg'

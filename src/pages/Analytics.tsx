@@ -127,7 +127,7 @@ const Analytics: React.FC = () => {
             <h2 className="text-lg font-semibold text-gray-900">Time Range</h2>
             <div className="flex items-center space-x-4">
             <div className="flex space-x-2">
-              {['24h', '7d', '30d', '90d'].map((range) => (
+              {(['24h', '7d', '30d', '90d'] as const).map((range) => (
                 <button
                   key={range}
                   onClick={() => setTimeRange(range)}
