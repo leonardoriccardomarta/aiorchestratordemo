@@ -30,28 +30,35 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, onSucces
         rating: `${rating}/5 stars - ${rating === 1 && 'Poor' || rating === 2 && 'Fair' || rating === 3 && 'Good' || rating === 4 && 'Very Good' || rating === 5 && 'Excellent'}`,
         selected_questions: selectedQuestions.length > 0 ? selectedQuestions.join(', ') : 'No specific questions selected',
         feedback: feedback || 'No feedback provided',
+        additional_feedback: additionalFeedback || 'N/A',
         date: new Date().toLocaleString(),
         subject: `AI Orchestrator Feedback - ${email} (${company || 'No Company'})`
       };
 
       // Use EmailJS to send real email
-      await emailjs.send(
+      const result = await emailjs.send(
         'service_g5b6agg', // Your service ID
         'template_ud03qpg', // Your template ID
         templateParams,
         'LtNUIsmmmJZfVgnHg' // Your Public Key
       );
 
-      onSuccess();
-      onClose();
+      console.log('EmailJS result:', result);
 
-      // Reset form
-      setRating(0);
-      setFeedback('');
-      setEmail('');
-      setCompany('');
-      setSelectedQuestions([]);
-      setAdditionalFeedback('');
+      if (result.status === 200) {
+        onSuccess();
+        onClose();
+
+        // Reset form
+        setRating(0);
+        setFeedback('');
+        setEmail('');
+        setCompany('');
+        setSelectedQuestions([]);
+        setAdditionalFeedback('');
+      } else {
+        throw new Error('Email sending failed');
+      }
     } catch (error) {
       console.error('Error sending email:', error);
       alert('Error sending feedback. Please try again or contact support.');
