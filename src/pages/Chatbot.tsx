@@ -395,13 +395,6 @@ const Chatbot: React.FC = () => {
             <span className="text-sm sm:text-base">Take a Tour</span>
           </button>
           
-          <button
-            onClick={() => setShowFeedback(true)}
-            className="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-3 sm:px-4 py-2 rounded-lg hover:from-green-700 hover:to-emerald-700 flex items-center transition-all duration-500 hover:scale-105 hover:shadow-xl hover:-translate-y-1"
-          >
-            <span className="mr-2">💬</span>
-            <span className="text-sm sm:text-base">Give Feedback</span>
-          </button>
         </div>
 
         {/* Chatbots List */}
