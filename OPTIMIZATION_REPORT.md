@@ -2,7 +2,7 @@
 
 ## 📊 **CONFRONTO PERFORMANCE**
 
-### **PRIMA delle Ottimizzazioni**
+### **PRIMA delle Ottimizionn**
 ```
 dist/assets/index-DZEoUuVc.js                394.05 kB │ gzip: 123.44 kB
 ```
